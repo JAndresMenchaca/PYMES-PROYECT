@@ -1,0 +1,80 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+  background-color: rgb(80, 79, 79);
+}
+#navPrincipal{
+  background-color: black;
+  color: azure;
+}
+.nav-link[data-widget="pushmenu"] i {
+  color: white;
+}
+.back{
+  margin-top: 0px;
+  background-color: rgba(24, 24, 24, 1);
+}
+.lateralBar{
+  background-color: rgba(33, 36, 46, 1);
+}
+.main-footer {
+  background-color: rgba(24, 24, 24, 1);
+}
+#title{
+  color: white;
+  text-align: center;
+  padding: 5px;
+  margin-top: 5px;
+}
+#idSettings{
+  font-size: 20px;
+  padding-bottom: 7px;
+  color: white;
+}
+#user-name{
+  color: azure;
+  padding: auto;
+  font-size: 20px;
+}
+#enterprise-name{
+  color: azure;
+  padding: auto;
+  font-size: 20px;
+}
+#img-logo{
+  margin-top: 15px;
+}
+.user-panel.nav-item .nav-link {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  color: #6c757d;
+  transition: background-color 0.3s;
+}
+
+.user-panel.nav-item .nav-link:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+#sec1{
+  margin-top: 10px;
+}
+
+.imgUser{
+  padding-top: 3px;
+  margin-left: 6px;
+}
