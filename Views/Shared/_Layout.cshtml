@@ -33,7 +33,7 @@
             </a> *@
             <div class="user-panel d-flex" id="sec1">
                 <div class="image imgUser">
-                    <a href=""><img src="images/rompecabezas.png" class="img-circle elevation-2" alt="Enterprise Image"></a>
+                    <a asp-action="Index" ><img src="~/images/rompecabezas.png" class="img-circle elevation-2" alt="Enterprise Image"></a>
                 </div>
 
                 <div class="info" style="margin-left: 18px; padding:auto">
@@ -45,7 +45,7 @@
             <nav class="mt-2">
             <div class="user-panel d-flex" id="sec1">
                 <div class="image imgUser">
-                    <a href=""><img src="images/hombre.png" class="img-circle elevation-2" alt="User Image"></a>
+                    <a href=""><img src="~/images/hombre.png" class="img-circle elevation-2" alt="User Image"></a>
                 </div>
 
                 <div class="info" style="margin-left: 18px; padding:auto">
@@ -66,9 +66,9 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-              <a href="<?php echo base_url().'proveedor' ?>" class="nav-link">
+              <a asp-action="ProductCRUD" class="nav-link">
                   <i class="fa-plane fas nav-icon"></i>
-                  <p>Supplier</p>
+                  <p>Product</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -99,7 +99,7 @@
           </li>
           <li class="nav-header"><hr></li>
           <li class="nav-item">
-            <a href="../calendar.html" class="nav-link">
+            <a asp-action="Users" class="nav-link">
               <i class="nav-icon fas fa-address-card "></i>
               <p>
                 User
@@ -126,8 +126,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <p style="opacity:.8">Log out</p>
+            <a asp-action="Session" class="nav-link">
+                <p style="opacity:.8">Log out</p>
             </a>
           </li>
           
