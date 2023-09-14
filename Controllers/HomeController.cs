@@ -32,11 +32,6 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
-        [Route("/Users")]
-        public IActionResult Users()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

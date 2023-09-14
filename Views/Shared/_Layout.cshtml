@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -33,7 +36,7 @@
             </a> *@
             <div class="user-panel d-flex" id="sec1">
                 <div class="image imgUser">
-                    <a asp-action="Index" ><img src="~/images/rompecabezas.png" class="img-circle elevation-2" alt="Enterprise Image"></a>
+                    <a asp-controller="Home" asp-action="Index"><img src="~/images/rompecabezas.png" class="img-circle elevation-2" alt="Enterprise Image"></a>
                 </div>
 
                 <div class="info" style="margin-left: 18px; padding:auto">
@@ -66,21 +69,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-              <a asp-action="ProductCRUD" class="nav-link">
+                <a asp-controller="Producers" asp-action="Index" class="nav-link">
                   <i class="fa-plane fas nav-icon"></i>
-                  <p>Product</p>
+                  <p>Producers</p>
                 </a>
               </li>
               <li class="nav-item">
-              <a href="<?php echo base_url().'categoria' ?>" class="nav-link">
+              <a asp-controller="Users" asp-action="Index" class="nav-link">
                   <i class="fas fa-archive nav-icon"></i>
-                  <p>Category</p>
+                  <p>Users</p>
               </a>
               </li>
               <li class="nav-item">
-                <a href="../../index3.html" class="nav-link">
+                <a asp-controller="People" asp-action="Index" class="nav-link">
                   <i class="fas fa-list-alt nav-icon"></i>
-                  <p>Orders</p>
+                  <p>Persons</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -126,7 +129,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a asp-action="Session" class="nav-link">
+                <a asp-controller="Home" asp-action="Session" class="nav-link">
                 <p style="opacity:.8">Log out</p>
             </a>
           </li>

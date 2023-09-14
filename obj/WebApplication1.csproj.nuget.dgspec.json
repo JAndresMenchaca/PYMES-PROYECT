@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\59162\\Desktop\\PYMES_WEB\\WebApplication1.csproj": {}
+    "C:\\University\\3er Semestre\\ProyectoSis\\PYMES\\PYMES-PROYECT\\WebApplication1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\59162\\Desktop\\PYMES_WEB\\WebApplication1.csproj": {
+    "C:\\University\\3er Semestre\\ProyectoSis\\PYMES\\PYMES-PROYECT\\WebApplication1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\59162\\Desktop\\PYMES_WEB\\WebApplication1.csproj",
+        "projectUniqueName": "C:\\University\\3er Semestre\\ProyectoSis\\PYMES\\PYMES-PROYECT\\WebApplication1.csproj",
         "projectName": "WebApplication1",
-        "projectPath": "C:\\Users\\59162\\Desktop\\PYMES_WEB\\WebApplication1.csproj",
-        "packagesPath": "C:\\Users\\59162\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\59162\\Desktop\\PYMES_WEB\\obj\\",
+        "projectPath": "C:\\University\\3er Semestre\\ProyectoSis\\PYMES\\PYMES-PROYECT\\WebApplication1.csproj",
+        "packagesPath": "C:\\Users\\Andre\\.nuget\\packages\\",
+        "outputPath": "C:\\University\\3er Semestre\\ProyectoSis\\PYMES\\PYMES-PROYECT\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Programas\\Visual Studio\\herramientas\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\59162\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Andre\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,6 +44,26 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[6.0.16, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
