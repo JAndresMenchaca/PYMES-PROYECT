@@ -1,0 +1,107 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="widget" id="widget1">
+                <div class="statistic">
+                    <div class="value">6</div>
+                    <div class="label">Usuarios</div>
+                </div>
+                <div class="statistic">
+                    <div class="value">30</div>
+                    <div class="label">Pedidos</div>
+                </div>
+                <div class="statistic">
+                    <div class="value">75%</div>
+                    <div class="label">Tasa de Ventas</div>
+                </div>
+            </div>
+            <div class="widget" id="widget2">
+                <div class="statistic">
+                    <div class="value">4</div>
+                    <div class="label">Usuarios Activos</div>
+                </div>
+                <div class="statistic">
+                    <div class="value">3.000</div>
+                    <div class="label">Ventas Mensuales</div>
+                </div>
+                <div class="statistic">
+                    <div class="value">98%</div>
+                    <div class="label">Tasa de Retención</div>
+                </div>
+            </div>
+            <div class="widget" id="widget3">
+                <div class="statistic">
+                    <div class="value">500</div>
+                    <div class="label">Visitas</div>
+                </div>
+                <div class="statistic">
+                    <div class="value">500</div>
+                    <div class="label">Reseñas Positivas</div>
+                </div>
+                <div class="statistic">
+                    <div class="value">25%</div>
+                    <div class="label">Tasa de Conversión</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Columna derecha -->
+        <div class="col-md-6">
+            <!-- Contenido de la columna derecha -->
+            <div class="chart-container">
+                <canvas id="myChart" width="500" height="500" style="margin-top: 50px;"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Datos para el gráfico
+    var data = {
+        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+        datasets: [{
+            label: 'Ventas Mensuales',
+            data: [50, 60, 70, 65, 80],
+             backgroundColor: [
+            'rgba(255, 99, 132, 0.6)', // Color para enero
+            'rgba(54, 162, 235, 0.6)', // Color para febrero
+            'rgba(255, 206, 86, 0.6)', // Color para marzo
+            'rgba(75, 192, 192, 0.6)', // Color para abril
+            'rgba(153, 102, 255, 0.6)' // Color para mayo
+        ],
+        borderColor: [
+            'rgba(255, 99, 132, 1)', // Borde color para enero
+            'rgba(54, 162, 235, 1)', // Borde color para febrero
+            'rgba(255, 206, 86, 1)', // Borde color para marzo
+            'rgba(75, 192, 192, 1)', // Borde color para abril
+            'rgba(153, 102, 255, 1)' // Borde color para mayo
+        ],
+        borderWidth: 1
+        }]
+    };
+
+    // Configuración del gráfico
+    var options = {
+        responsive: false, // No permitir que el gráfico sea responsive
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    };
+
+    // Crear el gráfico
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar', // Tipo de gráfico (en este caso, de barras)
+        data: data,
+        options: options
+    });
+</script>
