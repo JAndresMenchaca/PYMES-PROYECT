@@ -39,11 +39,8 @@ namespace WebApplication1.Controllers
                     if (userQuery != null)
                     {
                         var personQuery = await _context.People.FirstOrDefaultAsync(p => p.Id == userQuery.Id);
-                        if (personQuery != null)
-                        {
-                            _contextAccessor.HttpContext.Session.SetString("UserName", personQuery.Name + " " + personQuery.LastName);
-                            _contextAccessor.HttpContext.Session.SetString("Rol", userQuery.Role);
-                        }                                
+                        _contextAccessor.HttpContext.Session.SetString("UserName", personQuery.Name+" "+personQuery.LastName);
+                        _contextAccessor.HttpContext.Session.SetString("Rol", userQuery.Role);                                  
                         return RedirectToAction("Index", "Home");
                     }
                     else

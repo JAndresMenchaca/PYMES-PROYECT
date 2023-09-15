@@ -11177,24 +11177,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\volvo\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\isago\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\volvo\\Desktop\\gitHup\\PYMES-PROYECT-main\\PYMES-PROYECT-main\\WebApplication1.csproj",
+      "projectUniqueName": "C:\\Users\\isago\\OneDrive\\Escritorio\\PYMES-PROYECT-main\\PYMES-PROYECT-main\\PYMES-PROYECT-main\\WebApplication1.csproj",
       "projectName": "WebApplication1",
-      "projectPath": "C:\\Users\\volvo\\Desktop\\gitHup\\PYMES-PROYECT-main\\PYMES-PROYECT-main\\WebApplication1.csproj",
-      "packagesPath": "C:\\Users\\volvo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\volvo\\Desktop\\gitHup\\PYMES-PROYECT-main\\PYMES-PROYECT-main\\obj\\",
+      "projectPath": "C:\\Users\\isago\\OneDrive\\Escritorio\\PYMES-PROYECT-main\\PYMES-PROYECT-main\\PYMES-PROYECT-main\\WebApplication1.csproj",
+      "packagesPath": "C:\\Users\\isago\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\isago\\OneDrive\\Escritorio\\PYMES-PROYECT-main\\PYMES-PROYECT-main\\PYMES-PROYECT-main\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\volvo\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\isago\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11258,7 +11253,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }
