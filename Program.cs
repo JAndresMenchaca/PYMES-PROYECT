@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using WebApplication1.Models;
@@ -10,6 +11,13 @@ builder.Services.AddControllersWithViews();
 //importante
 builder.Services.AddDbContext<DbPymesContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); 
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(option =>
+{
+    option.IdleTimeout = TimeSpan.FromMinutes(2);
+});
 
 var app = builder.Build();
 
@@ -26,10 +34,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Login}/{action=Index}/{id?}");
 
 app.Run();
