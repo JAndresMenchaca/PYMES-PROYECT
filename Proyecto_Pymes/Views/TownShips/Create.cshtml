@@ -1,0 +1,70 @@
+﻿@model Proyecto_Pymes.Models.DB.TownShip
+@{
+    ViewData["Title"] = "Create";
+}
+<h1 style=" color: white; text-align:center;">Registro de Municipios</h1>
+
+
+<hr />
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <form method="post" action="/TownShips/Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label" style="color:white;">Ingrese el municipio</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdTown" class="control-label" style="color:white;">Departamento</label>
+                <select asp-for="IdTown" class="form-control" asp-items="ViewBag.IdTown"></select>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-warning btn-block">Aceptar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index" class="text-warning">Volver a la lista </a>
+</div>
+
+
+
+
+<div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Mensaje</h5>
+            </div>
+            <div class="modal-body">
+                <p>Registro exitoso! <i class="fas fa-check-circle"></i></p>
+            </div>
+            <div class="modal-footer">
+                <a asp-controller="TownShips" asp-action="Index" class="btn btn-warning">Aceptar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    @if (TempData["ShowModal"] as bool? == true)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#exampleModalCenter').modal('show');
+            });
+        </script>
+    }
+}

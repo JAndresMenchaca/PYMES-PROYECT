@@ -1,0 +1,160 @@
+﻿@model Proyecto_Pymes.Models.DB.Producer
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="container-fluid">
+
+
+
+    <h1>Editar Productor</h1>
+
+    <form method="post" action="/Producer/Edit">
+
+       <input hidden type="number" asp-for="Id" />
+       
+       <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="">Nombre:</label>
+                        <input asp-for="IdNavigation.Name" type="text" class="form-control"  id="" aria-describedby="helpId" placeholder="Nombre">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Primer Apellido:</label>
+                        <input asp-for="IdNavigation.LastName" type="text" class="form-control"  id="" aria-describedby="helpId" placeholder="Primer Apellido">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Segundo Apellido:</label>
+                        <input asp-for="IdNavigation.SecondLastName" type="text" class="form-control"  id="" aria-describedby="helpId" placeholder="Segundo Apellido">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Celular:</label>
+                        <input asp-for="IdNavigation.PhoneNumber" type="text" class="form-control"  id="" aria-describedby="helpId" placeholder="Celular">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Correo Electronico:</label>
+                        <input asp-for="IdNavigation.Email" type="text" class="form-control"  id="" aria-describedby="helpId" placeholder="Correo Electronico">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="">CI:</label>
+                                <input asp-for="IdNavigation.Ci" type="text" class="form-control"  id="" aria-describedby="helpId" placeholder="CI">
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="">Sexo:</label>
+                            <br>
+                            <div class="form-check form-check-inline">
+                                <input asp-for="IdNavigation.Gender" class="form-check-input" type="radio"  id="inlineRadio1" value="M">
+                                <label class="form-check-label" for="inlineRadio1">Masculino</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input asp-for="IdNavigation.Gender" class="form-check-input" type="radio"  id="inlineRadio2" value="F">
+                                <label class="form-check-label" for="inlineRadio2">Femenino</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="">Seleccione su Ubicasion</label>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Latitud</label>
+                                        <input asp-for="Latitude" type="text" class="form-control"  id="" aria-describedby="helpId" placeholder="Latitud">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Longitud</label>
+                                        <input asp-for="Longitude" type="text" class="form-control" id="" aria-describedby="helpId" placeholder="Longitud">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+
+            <button type="submit" class="btn btn-dark">Actulizar</button>
+        </div>
+    </form>
+
+
+
+
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Mensaje</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Productor Actualizado @Model.IdNavigation.Name correctamente! <i class="fas fa-check-circle"></i></p>
+                </div>
+                <div class="modal-footer">
+                    <a asp-controller="Producer" asp-action="Index" class="btn btn-warning">Aceptar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+@section Scripts {
+    @if (TempData["ShowModal"] as bool? == true)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#exampleModalCenter').modal('show');
+            });
+        </script>
+    }
+}
