@@ -1,4 +1,4 @@
-namespace WebApplication1.Models
+namespace Proyecto_Pymes.Models
 {
     public class ErrorViewModel
     {

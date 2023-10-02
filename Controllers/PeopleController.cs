@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.Models;
+using Proyecto_Pymes.Models.DB;
 
-namespace WebApplication1.Controllers
+namespace Proyecto_Pymes.Controllers
 {
     public class PeopleController : Controller
     {
@@ -40,7 +40,7 @@ namespace WebApplication1.Controllers
             {
                 return NotFound();
             }
-            
+
             return View(person);
         }
 
@@ -59,9 +59,6 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
-                // obtengo id
-
-
                 _context.Add(person);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

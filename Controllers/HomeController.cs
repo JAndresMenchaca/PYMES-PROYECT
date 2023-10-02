@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Proyecto_Pymes.Models;
 using System.Diagnostics;
-using WebApplication1.Models;
 
-namespace WebApplication1.Controllers
+
+namespace Proyecto_Pymes.Controllers
 {
     public class HomeController : Controller
     {
@@ -19,16 +20,6 @@ namespace WebApplication1.Controllers
         }
 
         public IActionResult Privacy()
-        {
-            return View();
-        }
-        [Route("/Session")]
-        public IActionResult Session()
-        {
-            return View();
-        }
-        [Route("/ProductCRUD")]
-        public IActionResult ProductCRUD()
         {
             return View();
         }
