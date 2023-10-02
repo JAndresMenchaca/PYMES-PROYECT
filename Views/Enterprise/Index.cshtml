@@ -1,0 +1,64 @@
+﻿@model List<Proyecto_Pymes.Models.DB.Enterprise>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1 style="color: white" ;>
+    Asociaciones
+</h1>
+<p>
+    <div class="text-right">
+        <a asp-action="Create" class="btn btn-warning"> Crear una Nueva Asociasion  </a>
+    </div>
+</p>
+<table class="table" style="color: White">
+    <thead>
+        <tr>
+            <th>
+                Nombre de Asociación
+            </th>
+            <th>
+                Dirección
+            </th>
+            <th>
+                Ciudad
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var enterprise in Model)
+        {
+            <tr style="background-color: #808080; color: white;">
+                <td>
+                    @enterprise.GroupName
+                </td>
+                <td>
+                    @enterprise.Address
+                </td>
+                <td>
+                    <!-- Asegúrate de usar el nombre de propiedad correcto -->
+                @enterprise.IdTownShipNavigation.Name
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a asp-action="Edit" asp-route-id="@enterprise.Id" class="btn btn-secondary">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a asp-action="Details" asp-route-id="@enterprise.Id" class="btn btn-secondary">
+                            <i class="fas fa-info-circle"></i> Details
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@enterprise.Id" class="btn btn-secondary" data-toggle="modal" data-target="@("#DeleteProduct-" + enterprise.Id)">
+                            <i class="fas fa-trash"></i> Delete
+                        </a>
+                        @await Html.PartialAsync("DeleteViewPartial",enterprise)              
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
