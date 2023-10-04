@@ -1,0 +1,78 @@
+﻿@model List<Proyecto_Pymes.Models.DB.Producer>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_Layout";
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.24.0/font/bootstrap-icons.css" rel="stylesheet">
+<h1 style="color: white" ;>
+    Productores
+</h1>
+<p>
+    <div class="text-right">
+        <a asp-action="Create" class="btn btn-warning">Nuevo Productor</a>
+    </div>
+</p>
+<table class="table" style="color:White">
+    <thead>
+        <tr>
+            <th>
+               Nombre
+            </th>
+            <th>
+               Apellido Paterno
+            </th>
+            <th>
+                Apellido Materno
+            </th>
+            <th>
+                Celular
+            </th>
+            <th>
+                Genero
+            </th>
+            <th>
+                CI
+            </th>
+            <th>
+                Email
+            </th>        
+           
+        </tr>
+    </thead>
+    <tbody>
+
+    
+            @foreach (var producer in Model)
+            {
+            <tr style="background-color: #808080; color: white;">             
+                <td>@producer.IdNavigation.Name</td>
+                <td>@producer.IdNavigation.LastName</td>
+                <td>@producer.IdNavigation.SecondLastName</td>
+                <td>@producer.IdNavigation.PhoneNumber</td>
+                <td>@producer.IdNavigation.Gender</td>
+                <td>@producer.IdNavigation.Ci</td>
+                <td>@producer.IdNavigation.Email</td>  
+                <td>
+                    <div class="btn-group">
+                        <a asp-action="Edit" asp-route-id="@producer.Id" class="btn btn-secondary">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a asp-action="Details" asp-route-id="@producer.Id" class="btn btn-secondary">
+                            <i class="fas fa-info-circle"></i> Details
+                        </a>
+
+                        <a asp-action="Delete" asp-route-id="@producer.Id" class="btn btn-secondary" data-toggle="modal" data-target="@("#DeleteProducer-" + producer.Id)">
+                            <i class="fas fa-trash"></i> Delete
+                        </a>
+                        @await Html.PartialAsync("DeleteViewPartial",producer)
+                    </div>
+                </td>
+            </tr>
+            }
+      
+    </tbody>
+</table>
+
+

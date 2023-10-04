@@ -1,0 +1,34 @@
+﻿@model Proyecto_Pymes.Models.DB.Producer
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<!-- Modal -->
+<div class="modal fade" id="DeleteProducer-@Model.Id" aria-labelledby="DeleteProducerLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 style="color:black" class="modal-title" id="exampleModalLabel">Confirmar Eliminación</h5>
+            </div>
+            <div style="color:black" class="modal-body">
+                ¿Está seguro de que desea eliminar el siguiente registro? <br />
+                <div>
+                    <p> Productor :  @Model.IdNavigation.Name  @Model.IdNavigation.LastName</p>
+                </div>
+            </div>
+            <form action="/Producer/ConfirmDelete" method="post">
+                <input hidden asp-for="Id" />
+                <input asp-for="IdNavigation.Name"/>
+                <input asp-for="IdNavigation.LastName" />
+                <div class="modal-footer">
+                    <a asp-action="Index" class="btn btn-danger" data-dismiss="modal">Cancelar</a>
+                    <button type="submit" class="btn btn-secondary">Aceptar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

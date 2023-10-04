@@ -1,0 +1,103 @@
+﻿@model Proyecto_Pymes.Models.DB.BusinessManager
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>BusinessManager</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IdNavigation.Name" class="control-label"></label>
+                <input asp-for="IdNavigation.Name" class="form-control" />
+                <span asp-validation-for="IdNavigation.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdNavigation.LastName" class="control-label"></label>
+                <input asp-for="IdNavigation.LastName" class="form-control" />
+                <span asp-validation-for="IdNavigation.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdNavigation.SecondLastName" class="control-label"></label>
+                <input asp-for="IdNavigation.SecondLastName" class="form-control" />
+                <span asp-validation-for="IdNavigation.SecondLastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdNavigation.Email" class="control-label"></label>
+                <input asp-for="IdNavigation.Email" class="form-control" />
+                <span asp-validation-for="IdNavigation.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdNavigation.PhoneNumber" class="control-label"></label>
+                <input asp-for="IdNavigation.PhoneNumber" class="form-control" />
+                <span asp-validation-for="IdNavigation.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdNavigation.Gender" class="control-label"></label>
+                <input asp-for="IdNavigation.Gender" class="form-control" />
+                <span asp-validation-for="IdNavigation.Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdNavigation.Ci" class="control-label"></label>
+                <input asp-for="IdNavigation.Ci" class="form-control" />
+                <span asp-validation-for="IdNavigation.Ci" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CorporateNumber" class="control-label">Numero Corporativo</label>
+                <input asp-for="CorporateNumber" class="form-control" />
+                <span asp-validation-for="CorporateNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdEnterprise" class="control-label">Empresa:</label>
+                <select asp-for="IdEnterprise" class="form-control" asp-items="ViewBag.IdEnterprise"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Edit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Mensaje</h5>
+            </div>
+            <div class="modal-body">
+                <p>Administrador de Empresa actualizado correctamente! <i class="fas fa-check-circle"></i></p>
+            </div>
+            <div class="modal-footer">
+                <a asp-controller="BusinessManagers" asp-action="Index" class="btn btn-warning">Aceptar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    @if (TempData["ShowModal"] as bool? == true)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#exampleModalCenter').modal('show');
+            });
+        </script>
+    }
+}

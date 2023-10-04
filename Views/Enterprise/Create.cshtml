@@ -1,0 +1,179 @@
+﻿@model Proyecto_Pymes.Models.DB.Enterprise;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<style>
+    .imagen-redonda {
+        border-radius: 50%; /* Hace que la imagen sea redonda */
+        width: 200px; /* Ajusta el ancho de la imagen según tus preferencias */
+        height: 200px; /* Ajusta la altura de la imagen según tus preferencias */
+        object-fit: cover; /* Escala la imagen para que llene el contenedor sin deformarla */
+        display: block; /* Convierte la imagen en un bloque para centrarla horizontalmente */
+        margin: 0 auto; /* Margen automático izquierdo y derecho para centrar horizontalmente */
+    }
+</style>
+
+
+<div class="container-fluid">
+
+    <h1 style="text-align:center; color:white;">Registrar Asociaciones</h1>
+
+
+    <form method="post" action="/Enterprise/create" enctype="multipart/form-data">
+
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="GroupName" style="color: white;">Nombre de la Asociacion :</label>
+                            <input type="text" class="form-control" asp-for="GroupName" id="" aria-describedby="helpId" placeholder="Ingrese el nombre de su Asociacion" style="color: black;">
+                            <span asp-validation-for="GroupName" class="text-danger" style="font-size: 12px;"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="IdTownShip" style="color: white;">Municipio:</label>
+                            <select class="form-control" asp-for="IdTownShip" asp-items="ViewBag.TownShips" style="color: black;">
+                                <option>Seleccione el Municipio</option>
+                            </select>
+                            <span asp-validation-for="IdTownShip" class="text-danger" style="font-size: 12px;"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Description" style="color:white;">Descripción:</label>
+                                <textarea class="form-control" asp-for="Description" id="" rows="5" placeholder="Ingrese una breve descripción" style="color: black;"></textarea>
+                                <span asp-validation-for="Description" class="text-danger" style="font-size: 12px;"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Address" style="color:white;">Direccion:</label>
+                                <textarea class="form-control" asp-for="Address" id="" rows="5" placeholder="Ingrese su Direccion" style="color: black;"></textarea>
+                                <span asp-validation-for="Address" class="text-danger" style="font-size: 12px;"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label asp-for="Image" style="color: white;">Buscar Logo:</label>
+                                    <div class="input-group">
+                                        <input type="file" id="Image" name="imagen" class="form-control" asp-for="Image" placeholder="Seleccione una Imagen" style="color: black;">
+                                    </div>
+                                    <span asp-validation-for="Image" class="text-danger" style="font-size: 12px;"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                          @*  <img id="previewImage" src="~/images/loginimg/rompecabezas.png" class="imagen-redonda" />*@
+                            @if (Model != null)
+                            {
+                                @if (Model.Image != null && Model.Image.Length > 0)
+                                {
+                                    <img id="previewImage" src="data:image/png;base64,@Convert.ToBase64String(Model.Image)" alt="Imagen actual" class="imagen-redonda" />
+                                }                          
+                            }else{
+                                <img id="previewImage" src="~/images/loginimg/rompecabezas.png" class="imagen-redonda" />
+                            }         
+                        </div>
+                    </div>
+  
+                </div>
+            </div>
+
+            <div class="col-md-12 my-5 text-center">
+                <div class="row">
+                    <div class="col-md-3">
+                    </div>                
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-dark btn-md  btn-block ">Aceptar</button> <!-- Agregamos "btn-block" para que ocupe todo el ancho -->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <a asp-action="Index" class="btn btn-warning btn-md btn-block ">Cancelar</a> <!-- Agregamos "btn-block" para que ocupe todo el ancho -->
+                                </div>
+                            </div>
+                        </div>                                                             
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+
+    <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Mensaje</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Registro exitoso! <i class="fas fa-check-circle"></i></p>
+                </div>
+                <div class="modal-footer">
+                    <a asp-controller="Enterprise" asp-action="Index" class="btn btn-warning">Aceptar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*para poder manejar el Modal*@
+    @section Scripts {
+        @if (TempData["ShowModal"] as bool? == true)
+        {
+            <script>
+                $(document).ready(function () {
+                    $('#exampleModalCenter').modal('show');
+                });
+            </script>
+        }
+    }
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <script>
+        // Función que se llama cuando se cambia el valor del campo de entrada de tipo file
+        function showPreviewImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#previewImage').attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Escucha el evento 'change' en el campo de entrada de tipo file
+        $('#Image').on('change', function () {
+            showPreviewImage(this);
+        });   
+    </script>
+
+  
