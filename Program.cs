@@ -1,23 +1,25 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using WebApplication1.Models;
+using Proyecto_Pymes.Models.DB;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//importante
 builder.Services.AddDbContext<DbPymesContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); 
+
+
 builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(option =>
+builder.Services.AddSession(options =>
 {
-    option.IdleTimeout = TimeSpan.FromMinutes(2);
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
 });
+
+
 
 var app = builder.Build();
 
@@ -34,9 +36,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
+
 
 app.MapControllerRoute(
     name: "default",
