@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Proyecto_Pymes.Models.DB.Category>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+           
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmar Eliminación</h5>
+            </div>
+            <div class="modal-body">
+                ¿Está seguro de que desea eliminar el siguiente registro? <br />
+                Nombre: @TempData["Name"]
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <a asp-action="ConfirmDelete" asp-route-id="@TempData["TownShipToDelete"]" class="btn btn-danger">Eliminar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @if (TempData["ShowModalDelete"] as bool? == true)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#exampleModal').modal('show');
+
+
+                $('#exampleModal').on('hidden.bs.modal', function () {
+
+                    $.ajax({
+                        url: '/TownShips/UpdateShowModalDelete',
+                        method: 'POST',
+                        data: { value: false }, // Enviar el valor false al servidor
+                        success: function (data) {
+                            // Opcional: Puedes realizar acciones adicionales después de cambiar el valor
+                        }
+                    });
+                });
+            });
+        </script>
+    }
+}

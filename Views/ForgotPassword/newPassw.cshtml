@@ -1,10 +1,10 @@
-﻿
-@*
+﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
     Layout = null;
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,29 +22,22 @@
                 <img src="~/images/loginimg/logoinicio.png" alt="Imagen" class="img-fluid" />
             </div>
 
-            <div class="col-md-6">
-                <form class="p-5 shadow" id="loginBox" action="@Url.Action("Index","Login")" method="post">
+            <div class="col-md-6 p-5 shadow">
+
                     <div class="d-flex mb-4">
                         <span class="text-warning" style="font-size: 40px; font-weight:bold; margin-top:0px">|</span>
                         <h1 class="">PYMES</h1>
                     </div>
-                    <h2 class="mb-4">Login</h2>
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="UserName" placeholder="Username" required>                
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="Password" placeholder="Password" required>
-                        <a asp-controller="ForgotPassword" asp-action="Index" style="color: rgb(249, 201, 7)">Olvide mi contrseña</a>
-                        <small style="color:red; margin:3px;">@ViewData["Error"]</small>
-                        
-                    </div>
-                   
+                    <h2 class="mb-4">Ya tiene una nueva contraseña!</h2>
+                    <h3 class="mb-6">Revise su Email</h3>
+
                     <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-warning" id="btnSession">SIGN-IN</button>
+                        
+                    <a asp-controller="Login" asp-action="Index" class="nav-link">
+                        <button class="btn btn-warning" id="btnSession">Volver al Login</button>
+                    </a>
                     </div>
-                </form>
+                
             </div>
         </div>
     </div>

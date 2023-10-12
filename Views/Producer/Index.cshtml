@@ -1,5 +1,4 @@
-﻿@using Proyecto_Pymes.Models.DB;
-
+﻿@model List<Proyecto_Pymes.Models.DB.Producer>
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -8,12 +7,11 @@
 }
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.24.0/font/bootstrap-icons.css" rel="stylesheet">
 <h1 style="color: white" ;>
-    Index
-
+    Productores
 </h1>
 <p>
     <div class="text-right">
-        <a asp-action="Create" class="btn btn-warning">Create New </a>
+        <a asp-action="Create" class="btn btn-warning">Nuevo Productor</a>
     </div>
 </p>
 <table class="table" style="color:White">
@@ -46,27 +44,29 @@
     <tbody>
 
     
-            @foreach (var person in Model)
+            @foreach (var producer in Model)
             {
             <tr style="background-color: #808080; color: white;">             
-                <td>@person.Name</td>
-                <td>@person.LastName</td>
-                <td>@person.SecondLastName</td>
-                <td>@person.PhoneNumber</td>
-                <td>@person.Gender</td>
-                <td>@person.Ci</td>
-                <td>@person.Email</td>  
+                <td>@producer.IdNavigation.Name</td>
+                <td>@producer.IdNavigation.LastName</td>
+                <td>@producer.IdNavigation.SecondLastName</td>
+                <td>@producer.IdNavigation.PhoneNumber</td>
+                <td>@producer.IdNavigation.Gender</td>
+                <td>@producer.IdNavigation.Ci</td>
+                <td>@producer.IdNavigation.Email</td>  
                 <td>
                     <div class="btn-group">
-                        <a asp-action="Edit" asp-route-id="@person.Id" class="btn btn-secondary">
+                        <a asp-action="Edit" asp-route-id="@producer.Id" class="btn btn-secondary">
                             <i class="fas fa-edit"></i> Edit
                         </a>
-                        <a asp-action="Details" asp-route-id="@person.Id" class="btn btn-secondary">
+                        <a asp-action="Details" asp-route-id="@producer.Id" class="btn btn-secondary">
                             <i class="fas fa-info-circle"></i> Details
                         </a>
-                        <a asp-action="Delete" asp-route-id="@person.Id" class="btn btn-secondary">
+
+                        <a asp-action="Delete" asp-route-id="@producer.Id" class="btn btn-secondary" data-toggle="modal" data-target="@("#DeleteProducer-" + producer.Id)">
                             <i class="fas fa-trash"></i> Delete
                         </a>
+                        @await Html.PartialAsync("DeleteViewPartial",producer)
                     </div>
                 </td>
             </tr>
@@ -76,47 +76,3 @@
 </table>
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Confirmar Eliminación</h5>
-            </div>
-            <div class="modal-body">           
-                ¿Está seguro de que desea eliminar el siguiente registro? <br />
-                Nombre: @TempData["Name"] @TempData["lastName"] @TempData["SeconlastName"]      
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <a asp-action="ConfirmDelete" asp-route-id="@TempData["PersonToDelete"]" class="btn btn-danger">Eliminar</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-@section Scripts {
-    @if (TempData["ShowModalDelete"] as bool? == true)
-    {
-        <script>
-            $(document).ready(function () {
-                $('#exampleModal').modal('show');
-
-             
-                $('#exampleModal').on('hidden.bs.modal', function () {
-                  
-                    $.ajax({
-                        url: '/Producer/UpdateShowModalDelete', 
-                        method: 'POST',
-                        data: { value: false }, // Enviar el valor false al servidor
-                        success: function (data) {
-                            // Opcional: Puedes realizar acciones adicionales después de cambiar el valor
-                        }
-                    });
-                });
-            });
-        </script>
-    }
-}

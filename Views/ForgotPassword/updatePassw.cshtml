@@ -1,5 +1,4 @@
-﻿
-@*
+﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -23,26 +22,20 @@
             </div>
 
             <div class="col-md-6">
-                <form class="p-5 shadow" id="loginBox" action="@Url.Action("Index","Login")" method="post">
+                <form class="p-5 shadow" id="loginBox" action="/ForgotPassword/updatePassw" method="post">
                     <div class="d-flex mb-4">
                         <span class="text-warning" style="font-size: 40px; font-weight:bold; margin-top:0px">|</span>
                         <h1 class="">PYMES</h1>
                     </div>
-                    <h2 class="mb-4">Login</h2>
+                    <h2 class="mb-4">Cambie la contraseña</h2>
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="UserName" placeholder="Username" required>                
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="Password" placeholder="Password" required>
-                        <a asp-controller="ForgotPassword" asp-action="Index" style="color: rgb(249, 201, 7)">Olvide mi contrseña</a>
+                        <label for="code" class="form-label">Hemos enviado un codigo a su correo electronico, introduzcalo:</label>
+                        <input type="text" class="form-control" id="code" name="code" placeholder="Codigo" required>
                         <small style="color:red; margin:3px;">@ViewData["Error"]</small>
-                        
                     </div>
-                   
+
                     <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-warning" id="btnSession">SIGN-IN</button>
+                        <button type="submit" class="btn btn-warning" id="btnSession">Enviar</button>
                     </div>
                 </form>
             </div>

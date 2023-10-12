@@ -1,0 +1,105 @@
+﻿@model Proyecto_Pymes.Models.DB.Product
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BasePrise" class="control-label"></label>
+                <input asp-for="BasePrise" type="number" class="form-control" />
+                <span asp-validation-for="BasePrise" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Stock" class="control-label"></label>
+                <input asp-for="Stock" type="number" class="form-control" />
+                <span asp-validation-for="Stock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitMeasure" class="control-label"></label>
+                <input asp-for="UnitMeasure" class="form-control" />
+                <span asp-validation-for="UnitMeasure" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ManufacturingNeed" class="control-label">Manufactura:</label> <br />
+                <select name="Manufactura" asp-for="ManufacturingNeed" class="control-label">
+                    <option value="1">Con Manufactura</option>
+                    <option value="0">Sin Manufactura</option>
+                </select>
+                <span asp-validation-for="ManufacturingNeed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdProducer" class="control-label"></label>
+                <select asp-for="IdProducer" class="form-control" asp-items="ViewBag.IdProducer"></select>
+                <span asp-validation-for="IdProducer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdCategory" class="control-label"></label>
+                <select asp-for="IdCategory" class="form-control" asp-items="ViewBag.IdCategory"></select>
+                <span asp-validation-for="IdCategory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdSector" class="control-label"></label>
+                <select asp-for="IdSector" class="form-control" asp-items="ViewBag.IdSector"></select>
+                <span asp-validation-for="IdSector" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Mensaje</h5>
+            </div>
+            <div class="modal-body">
+                <p>Producto Actualizado correctamente! <i class="fas fa-check-circle"></i></p>
+            </div>
+            <div class="modal-footer">
+                <a asp-controller="Products" asp-action="Index" class="btn btn-warning">Aceptar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    @if (TempData["ShowModal"] as bool? == true)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#exampleModalCenter').modal('show');
+            });
+        </script>
+    }
+}
