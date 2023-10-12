@@ -21,7 +21,7 @@ public partial class Sector
 
     public int UserId { get; set; }
 
-    public virtual Warehouse IdWareHouseNavigation { get; set; } = null!;
+    public virtual Warehouse? IdWareHouseNavigation { get; set; } = null!;
 
-    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+    public virtual ICollection<Product>? Products { get; set; } = new List<Product>();
 }

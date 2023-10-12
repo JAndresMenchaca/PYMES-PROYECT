@@ -8,6 +8,8 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Data.SqlClient;
 using System.Reflection;
+using System.Net.Mail;
+using System.Net;
 
 namespace Proyecto_Pymes.Controllers
 {
@@ -15,32 +17,38 @@ namespace Proyecto_Pymes.Controllers
     {
 
         private readonly DbPymesContext _context;
+        private string passw;
 
         public ProducerController(DbPymesContext context)
         {
             _context = context;
         }
-
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
         //para poder recuperar los datos
         public async Task<IActionResult> Index()
         {
-            var sql = @"SELECT *
-                        FROM Person
-                        WHERE id IN (
-                            SELECT pr.id
-                            FROM Enterprise e
-                            INNER JOIN producerCompany pc ON e.id = pc.idEnterprise
-                            INNER JOIN Producer pr ON pr.id = pc.idProducer
-                            WHERE pr.status = 1 AND e.id = @EnterpriseId )";
-            //recuperamos el id de la empresa don de se filtrar los productores
-            string enterpriseId = HttpContext.Session.GetString("EnterpriseID");
-            var people = await _context.People.FromSqlRaw(sql, new SqlParameter("@EnterpriseId", enterpriseId) ).ToListAsync();
+            //var sql = @"SELECT *
+            //            FROM Person
+            //            WHERE id IN (
+            //                SELECT pr.id
+            //                FROM Enterprise e
+            //                INNER JOIN producerCompany pc ON e.id = pc.idEnterprise
+            //                INNER JOIN Producer pr ON pr.id = pc.idProducer
+            //                WHERE pr.status = 1 AND e.id = @EnterpriseId )";
+            ////recuperamos el id de la empresa don de se filtrar los productores
+            int enterpriseId = int.Parse( HttpContext.Session.GetString("EnterpriseID"));      
+            var producer = await _context.Producers
+                         .Include(pr => pr.IdNavigation) // Mueve la llamada a Include antes de Select
+                         .Join(
+                             _context.ProducerCompanies,
+                             p => p.Id,
+                             pc => pc.IdProducer,
+                             (p, pc) => new { Producer = p, ProducerCompany = pc }
+                         )
+                         .Where(e => e.Producer.Status == 1 && e.ProducerCompany.IdEnterprise == enterpriseId)                
+                         .Select(e => e.Producer) // Proyecta solo la entidad Producer
+                         .ToListAsync();
 
-            return View(people);
+            return View(producer);
         }
 
 
@@ -93,6 +101,7 @@ namespace Proyecto_Pymes.Controllers
                         transaction.Commit();
                         //PARA EL MODAL
                         TempData["ShowModal"] = true;
+                        sendEmail(producer.IdNavigation.Email, user.UserName, passw, producer.IdNavigation.Name, producer.IdNavigation.LastName, user.Role);
                     }
                 }
                 catch (Exception)
@@ -133,6 +142,7 @@ namespace Proyecto_Pymes.Controllers
             using (MD5 md5 = MD5.Create())
             {
                 string password = person.Ci.Substring(0, 5) + person.Email.Substring(0,2);
+                passw = password;
                 byte[] inputBytes = Encoding.ASCII.GetBytes(password);
                 byte[] hashBytes = md5.ComputeHash(inputBytes);
                 return hashBytes;
@@ -230,27 +240,14 @@ namespace Proyecto_Pymes.Controllers
         // GET: People/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            var person = await _context.People.FirstOrDefaultAsync(m => m.Id == id);
-            if (person == null)
+            var producer = await _context.Producers.FirstOrDefaultAsync(P => P.Id == id);                          
+            if (producer == null)
             {
                 return NotFound();
             }
-            TempData["PersonToDelete"] = person.Id;
-            TempData["Name"] = person.Name;
-            TempData["lastName"] = person.LastName;
-            TempData["SeconlastName"] = person.SecondLastName;
-            TempData["ShowModalDelete"] = true;
-
-            return RedirectToAction("Index");
+          
+            return PartialView("DeleteViewPartial", producer);
         }
-
-        [HttpPost]
-        public IActionResult UpdateShowModalDelete(bool value)
-        {
-            TempData["ShowModalDelete"] = value;
-            return Json(new { success = true });
-        }
-
 
         public async Task<IActionResult> ConfirmDelete(int? id)
         {
@@ -267,6 +264,41 @@ namespace Proyecto_Pymes.Controllers
             _context.Producers.Update(producer);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        public int sendEmail(string email, string username, string password, string nombre, string apellido, string rol)
+        {
+            try
+            {
+
+                // Configurar los detalles del correo electrónico
+                string remitente = "contacto.codensa@gmail.com";
+                string destinatario = email;
+                string asunto = "ENVIO DE CREDENCIALES A: " + nombre + " " + apellido;
+                string cuerpoMensaje = "Estas son sus credenciales para ingresar al sistema, tenga mucho cuidado y no las comparta con nadie.\n" +
+                                        "\nUsted esta registrado como un: " + rol +
+                                        "\n\nNombre de usuario: " + username + "\n" +
+                                        "\nContraseña: " + password + "\n" +
+                                        "\nRecuerde que debera cambiar su contraseña al ingresar al sistema por primera vez" +
+                                        "\n\nCualquier duda por favor ponganse en contacto con el administrador";
+
+                // Crear el objeto MailMessage
+                MailMessage correo = new MailMessage(remitente, destinatario, asunto, cuerpoMensaje);
+
+                // Configurar el cliente SMTP
+                SmtpClient clienteSmtp = new SmtpClient("smtp.gmail.com", 587);
+                clienteSmtp.EnableSsl = true;
+                clienteSmtp.UseDefaultCredentials = false;
+                clienteSmtp.Credentials = new NetworkCredential("contacto.codensa@gmail.com", "wiabflozvurvzhhp");
+
+                // Enviar el correo electrónico
+                clienteSmtp.Send(correo);
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
     }

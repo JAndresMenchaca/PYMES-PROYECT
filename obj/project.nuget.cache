@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vwI/qCQMXaIJws1jnvHIlV+wqLHnWWmJhhRgB2bGxk/FDcy4HrQG2rvq6MQZ2JZE5LZ3OMGRoc4HFbMv/4u9ww==",
+  "dgSpecHash": "F1eOOdmvy9Ev4IFrbOIacN+eMO1nTqoepMo4o0Gmk4yD/jt/Bame86nIBUa9evKH3xWfn3pTrX1k1K/OMwgT2Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Andre\\OneDrive\\Escritorio\\pymes\\Proyecto_Pymes\\Proyecto_Pymes\\Proyecto_Pymes.csproj",
+  "projectFilePath": "C:\\Users\\Andre\\OneDrive\\Escritorio\\Proyecto_Pymes\\Proyecto_Pymes\\Proyecto_Pymes.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Andre\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Andre\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

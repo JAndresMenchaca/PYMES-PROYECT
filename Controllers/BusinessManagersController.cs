@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +18,7 @@ namespace Proyecto_Pymes.Controllers
     public class BusinessManagersController : Controller
     {
         private readonly DbPymesContext _context;
+        private string passw;
 
         public BusinessManagersController(DbPymesContext context)
         {
@@ -91,6 +94,7 @@ namespace Proyecto_Pymes.Controllers
                         transaction.Commit();
                         //PARA EL MODAL
                         TempData["ShowModal"] = true;
+                        sendEmail(bs.IdNavigation.Email, user.UserName, passw, bs.IdNavigation.Name, bs.IdNavigation.LastName, user.Role);
                     }
                 }
                 catch (Exception)
@@ -280,9 +284,45 @@ namespace Proyecto_Pymes.Controllers
             using (MD5 md5 = MD5.Create())
             {
                 string password = person.Ci.Substring(0, 5) + person.Email.Substring(0, 2);
+                passw = password;
                 byte[] inputBytes = Encoding.ASCII.GetBytes(password);
                 byte[] hashBytes = md5.ComputeHash(inputBytes);
                 return hashBytes;
+            }
+        }
+
+        public int sendEmail(string email, string username, string password, string nombre, string apellido, string rol)
+        {
+            try
+            {
+
+                // Configurar los detalles del correo electrónico
+                string remitente = "contacto.codensa@gmail.com";
+                string destinatario = email;
+                string asunto = "ENVIO DE CREDENCIALES A: " + nombre + " " + apellido;
+                string cuerpoMensaje = "Estas son sus credenciales para ingresar al sistema, tenga mucho cuidado y no las comparta con nadie.\n" +
+                                        "\nUsted esta registrado como un: " + rol +
+                                        "\n\nNombre de usuario: " + username + "\n" +
+                                        "\nContraseña: " + password + "\n" +
+                                        "\nRecuerde que debera cambiar su contraseña al ingresar al sistema por primera vez" +
+                                        "\n\nCualquier duda por favor ponganse en contacto con el administrador";
+
+                // Crear el objeto MailMessage
+                MailMessage correo = new MailMessage(remitente, destinatario, asunto, cuerpoMensaje);
+
+                // Configurar el cliente SMTP
+                SmtpClient clienteSmtp = new SmtpClient("smtp.gmail.com", 587);
+                clienteSmtp.EnableSsl = true;
+                clienteSmtp.UseDefaultCredentials = false;
+                clienteSmtp.Credentials = new NetworkCredential("contacto.codensa@gmail.com", "wiabflozvurvzhhp");
+
+                // Enviar el correo electrónico
+                clienteSmtp.Send(correo);
+                return 1;
+            }
+            catch
+            {
+                return 0;
             }
         }
 

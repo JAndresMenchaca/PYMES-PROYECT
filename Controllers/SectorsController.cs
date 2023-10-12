@@ -1,47 +1,63 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Proyecto_Pymes.Models.DB;
 
-using System.Globalization;
-
 namespace Proyecto_Pymes.Controllers
 {
-    public class TownShipsController : Controller
+    public class SectorsController : Controller
     {
         private readonly DbPymesContext _context;
 
-        public TownShipsController(DbPymesContext context)
+        public SectorsController(DbPymesContext context)
         {
             _context = context;
         }
-        
 
+        // GET: Sectors
         public async Task<IActionResult> Index()
         {
-            // Define la consulta SQL para seleccionar todos los municipios
-            //var sql = @" select * from TownShip t ";
-
-            // Ejecuta la consulta SQL y obtén los resultados
-            // var townships = await _context.TownShips.FromSqlRaw(sql).ToListAsync();
-            var dbPymesContext = _context.TownShips
-             .Include(t => t.IdTownNavigation)
-             .Where(t => t.Status == 1);
-
-
+            var dbPymesContext = _context.Sectors.Include(s => s.IdWareHouseNavigation).Where(s => s.Status == 1);
             return View(await dbPymesContext.ToListAsync());
-
         }
 
+        // GET: Sectors/Details/5
+        public async Task<IActionResult> Details(short? id)
+        {
+            if (id == null || _context.Sectors == null)
+            {
+                return NotFound();
+            }
+
+            var sector = await _context.Sectors
+                .Include(s => s.IdWareHouseNavigation)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (sector == null)
+            {
+                return NotFound();
+            }
+
+            return View(sector);
+        }
+
+        // GET: Sectors/Create
         public IActionResult Create()
         {
-            ViewData["IdTown"] = new SelectList(_context.Towns, "Id", "Name");
+            ViewData["IdWareHouse"] = new SelectList(_context.Warehouses.Where(w => w.Status == 1), "Id", "Name");
             return View();
         }
+
+        // POST: Sectors/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<IActionResult> Create(TownShip townShip)
+        public async Task<IActionResult> Create(Sector sector)
         {
             using (var transaction = _context.Database.BeginTransaction())
             {
@@ -51,9 +67,14 @@ namespace Proyecto_Pymes.Controllers
                     {
 
                         string userID = HttpContext.Session.GetString("UserID");
-                        townShip.RegisterDate = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), "yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture);
-                        townShip.UserId = int.Parse(userID);
-                        _context.TownShips.Add(townShip);
+                        var ultimoIdInsertado = _context.Sectors
+                            .OrderByDescending(s => s.Id)
+                            .Select(s => s.Id)
+                            .FirstOrDefault();
+
+                        sector.Id = (short)(ultimoIdInsertado + 1);
+                        sector.UserId = int.Parse(userID);
+                        _context.Sectors.Add(sector);
                         await _context.SaveChangesAsync();
 
                         // Commit la transacción si todo fue exitoso
@@ -72,24 +93,29 @@ namespace Proyecto_Pymes.Controllers
             return View();
         }
 
+
+        // GET: Sectors/Edit/5
         public async Task<IActionResult> Edit(short? id)
         {
-            if (id == null || _context.TownShips == null)
+            if (id == null || _context.Sectors == null)
             {
                 return NotFound();
             }
 
-            var townShip = await _context.TownShips.FindAsync(id);
-            if (townShip == null)
+            var sector = await _context.Sectors.FindAsync(id);
+            if (sector == null)
             {
                 return NotFound();
             }
-            ViewData["IdTown"] = new SelectList(_context.Towns, "Id", "Name", townShip.IdTown);
-            return View(townShip);
+            ViewData["IdWareHouse"] = new SelectList(_context.Warehouses.Where(s => s.Status == 1), "Id", "Name", sector.IdWareHouse);
+            return View(sector);
         }
 
+        // POST: Sectors/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<IActionResult> Edit(TownShip townShip)
+        public async Task<IActionResult> Edit(Sector sector)
         {
             using (var transaction = _context.Database.BeginTransaction())
             {
@@ -98,13 +124,15 @@ namespace Proyecto_Pymes.Controllers
                     if (ModelState.IsValid)
                     {
                         //para la tabla Productor
-                        string sql1 = @"UPDATE TownShip SET name = @name, idTown = @idTown, lastUpdate = CURRENT_TIMESTAMP WHERE id = @id;";
+                        string sql1 = @"UPDATE Sector SET name = @name, capacityMax = @capacity, idWareHouse=@ware,userID =@userId WHERE id = @id;";
                         // Crea objetos SqlParameter para los parámetros de la consulta
                         SqlParameter[] parameters1 = new SqlParameter[]
                         {
-                            new SqlParameter("@name", townShip.Name),
-                            new SqlParameter("@idTown", townShip.IdTown),
-                            new SqlParameter("@id", townShip.Id),
+                            new SqlParameter("@name", sector.Name),
+                            new SqlParameter("@capacity", sector.CapacityMax),
+                            new SqlParameter("@ware", sector.IdWareHouse),
+                            new SqlParameter("@userId", sector.UserId),
+                            new SqlParameter("@id", sector.Id),
                         };
                         int affectedRows1 = await _context.Database.ExecuteSqlRawAsync(sql1, parameters1);
 
@@ -120,7 +148,7 @@ namespace Proyecto_Pymes.Controllers
                     else
                     {
                         // Si hay errores en el modelo, no se realizará el commit de la transacción
-                        return View(townShip);
+                        return View(sector);
                     }
                 }
                 catch (Exception ex)
@@ -128,26 +156,23 @@ namespace Proyecto_Pymes.Controllers
                     // Si ocurre un error, puedes manejarlo aquí y realizar un rollback de la transacción si es necesario
                     transaction.Rollback();
                     ModelState.AddModelError(string.Empty, "Ocurrió un error al guardar los datos.");
-                    return View(townShip);
+                    return View(sector);
                 }
             }
         }
 
 
-        private bool TownShipExists(short id)
-        {
-            return (_context.TownShips?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
 
+        // GET: Sectors/Delete/5
         public async Task<IActionResult> Delete(short? id)
         {
-            var township = await _context.TownShips.FirstOrDefaultAsync(m => m.Id == id);
-            if (township == null)
+            var sector = await _context.Sectors.FirstOrDefaultAsync(m => m.Id == id);
+            if (sector == null)
             {
                 return NotFound();
             }
-            TempData["TownShipToDelete"] = (int)township.Id;
-            TempData["Name"] = township.Name;
+            TempData["TownShipToDelete"] = (int)sector.Id;
+            TempData["Name"] = sector.Name;
             TempData["ShowModalDelete"] = true;
 
             return RedirectToAction("Index");
@@ -167,16 +192,20 @@ namespace Proyecto_Pymes.Controllers
             {
                 return NotFound();
             }
-            var townShip = await _context.TownShips.FindAsync(id);
-            if (townShip == null)
+            var sector = await _context.Sectors.FindAsync(id);
+            if (sector == null)
             {
                 return NotFound();
             }
-            townShip.Status = 0; // O es valor Inactivo          
-            _context.TownShips.Update(townShip);
+            sector.Status = 0; // O es valor Inactivo          
+            _context.Sectors.Update(sector);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
+        private bool SectorExists(short id)
+        {
+          return (_context.Sectors?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
     }
 }

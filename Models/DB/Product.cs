@@ -37,15 +37,15 @@ public partial class Product
 
     public int UserId { get; set; }
 
-    public virtual Category IdCategoryNavigation { get; set; } = null!;
+    public virtual Category? IdCategoryNavigation { get; set; } = null!;
 
-    public virtual Producer IdProducerNavigation { get; set; } = null!;
+    public virtual Producer? IdProducerNavigation { get; set; } = null!;
 
     public virtual Sector? IdSectorNavigation { get; set; }
 
-    public virtual ICollection<Image> Images { get; set; } = new List<Image>();
+    public virtual ICollection<Image>? Images { get; set; } = new List<Image>();
 
-    public virtual ICollection<Manufacturing> Manufacturings { get; set; } = new List<Manufacturing>();
+    public virtual ICollection<Manufacturing>? Manufacturings { get; set; } = new List<Manufacturing>();
 
-    public virtual ICollection<Specification> Specifications { get; set; } = new List<Specification>();
+    public virtual ICollection<Specification>? Specifications { get; set; } = new List<Specification>();
 }
