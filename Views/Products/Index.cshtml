@@ -1,0 +1,127 @@
+﻿@model IEnumerable<Proyecto_Pymes.Models.DB.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 style="color: white;" >Productos</h1>
+
+<a asp-action="Create" class="btn" style="background-color: rgb(23, 114, 64); 
+color:white; margin: 20px 20px 20px 0px; font-size: 20px "> Crear🔨</a>
+
+<table class="table" style="color: white;">
+    <thead>
+        <tr>
+            <th>
+                NOMBRE
+            </th>
+            @*<th>
+                DESCRIPCION
+            </th>*@
+            <th>
+                PRECIO BASE (BS)
+            </th>
+            <th>
+                STOCK
+            </th>
+            <th>
+                UNIDAD MEDIDA
+            </th>
+            <th>
+                CATEGORIA
+            </th>
+           @* <th>
+                PRODUCTOR
+            </th>*@
+            <th>
+                SECTOR
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+           @* <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>*@
+            <td>
+                @item.BasePrise
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitMeasure)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCategoryNavigation.Name)
+            </td>
+           @* <td>
+                @Html.DisplayFor(modelItem => item.IdProducerNavigation.IdNavigation.Name)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.IdSectorNavigation.Name)
+            </td>
+            <td>
+                   
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn" style="background-color: #1c6eba; color: white; font-size: 17px">
+                    ✏
+                    </a>
+                 @*   <a asp-action="Details" asp-route-id="@item.Id" class="btn" style="background-color: #ba851c; color: white;  margin-left: 10px; border-radius: 4px ">
+                            📑
+                        </a> *@
+                   
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn" style="background-color:#ba1c1c; color:white; margin-left: 10px; font-size: 17px ">
+                            🗑</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmar Eliminación</h5>
+            </div>
+            <div class="modal-body">
+                ¿Está seguro de que desea eliminar el siguiente registro? <br />
+                Nombre: @TempData["Name"]
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <a asp-action="ConfirmDelete" asp-route-id="@TempData["TownShipToDelete"]" class="btn btn-danger">Eliminar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @if (TempData["ShowModalDelete"] as bool? == true)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#exampleModal').modal('show');
+
+
+                $('#exampleModal').on('hidden.bs.modal', function () {
+
+                    $.ajax({
+                        url: '/TownShips/UpdateShowModalDelete',
+                        method: 'POST',
+                        data: { value: false }, // Enviar el valor false al servidor
+                        success: function (data) {
+                            // Opcional: Puedes realizar acciones adicionales después de cambiar el valor
+                        }
+                    });
+                });
+            });
+        </script>
+    }
+}

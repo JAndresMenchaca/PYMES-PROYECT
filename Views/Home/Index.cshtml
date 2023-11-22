@@ -3,64 +3,248 @@
     Layout = "_Layout";
 }
 
+
+
+
+
+
 <div class="container">
-    <div class="row">
-        <div class="col-md-6">
 
-            <div class="widget" id="widget1">
-                <div class="statistic">
-                    <div class="value">6</div>
-                    <div class="label">Usuarios</div>
-                </div>
-                <div class="statistic">
-                    <div class="value">30</div>
-                    <div class="label">Pedidos</div>
-                </div>
-                <div class="statistic">
-                    <div class="value">75%</div>
-                    <div class="label">Tasa de Ventas</div>
-                </div>
-            </div>
-            <div class="widget" id="widget2">
-                <div class="statistic">
-                    <div class="value">4</div>
-                    <div class="label">Usuarios Activos</div>
-                </div>
-                <div class="statistic">
-                    <div class="value">3.000</div>
-                    <div class="label">Ventas Mensuales</div>
-                </div>
-                <div class="statistic">
-                    <div class="value">98%</div>
-                    <div class="label">Tasa de Retención</div>
-                </div>
-            </div>
-            <div class="widget" id="widget3">
-                <div class="statistic">
-                    <div class="value">500</div>
-                    <div class="label">Visitas</div>
-                </div>
-                <div class="statistic">
-                    <div class="value">500</div>
-                    <div class="label">Reseñas Positivas</div>
-                </div>
-                <div class="statistic">
-                    <div class="value">25%</div>
-                    <div class="label">Tasa de Conversión</div>
-                </div>
-            </div>
+    @{
+                        
+        if(Context.Session.GetString("role") == "SuperUsuario"){
+            <div class="row">
+                <div class="col-md-6">
 
-        </div>
+                    <div class="widget" id="widget1">
+                        <div class="statistic">
+                            <div class="value">6</div>
+                            <div class="label">Usuarios</div>
+                        </div>
+                        <div class="statistic">
+                            <div class="value">30</div>
+                            <div class="label">Pedidos</div>
+                        </div>
+                        <div class="statistic">
+                            <div class="value">75%</div>
+                            <div class="label">Tasa de Ventas</div>
+                        </div>
+                    </div>
+                    <div class="widget" id="widget2">
+                        <div class="statistic">
+                            <div class="value">4</div>
+                            <div class="label">Usuarios Activos</div>
+                        </div>
+                        <div class="statistic">
+                            <div class="value">3.000</div>
+                            <div class="label">Ventas Mensuales</div>
+                        </div>
+                        <div class="statistic">
+                            <div class="value">98%</div>
+                            <div class="label">Tasa de Retención</div>
+                        </div>
+                    </div>
+                    <div class="widget" id="widget3">
+                        <div class="statistic">
+                            <div class="value">500</div>
+                            <div class="label">Visitas</div>
+                        </div>
+                        <div class="statistic">
+                            <div class="value">500</div>
+                            <div class="label">Reseñas Positivas</div>
+                        </div>
+                        <div class="statistic">
+                            <div class="value">25%</div>
+                            <div class="label">Tasa de Conversión</div>
+                        </div>
+                    </div>
 
-        <!-- Columna derecha -->
-        <div class="col-md-6">
-            <!-- Contenido de la columna derecha -->
-            <div class="chart-container">
-                <canvas id="myChart" width="500" height="500" style="margin-top: 50px;"></canvas>
+                </div>
+
+                <!-- Columna derecha -->
+                <div class="col-md-6">
+                    <!-- Contenido de la columna derecha -->
+                    <div class="chart-container">
+                        <canvas id="myChart" width="500" height="500" style="margin-top: 50px;"></canvas>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+        }
+
+        else if(Context.Session.GetString("role") == "AdministradorEmpresa"){
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="widget" id="widget4">
+                        <div class="statistic">
+                            <div class="value">6</div>
+                            <div class="label">Usuarios</div>
+                        </div>
+                        <div class="statistic">
+                            <div class="value">30</div>
+                            <div class="label">Pedidos</div>
+                        </div>
+                        <div class="statistic">
+                            <div class="value">75%</div>
+                            <div class="label">Tasa de Ventas</div>
+                        </div>
+                    </div>
+                    <div class="widget" id="widget5">
+                        <div class="statistic">
+                            <div class="value">4</div>
+                            <div class="label">Usuarios Activos</div>
+                        </div>
+                        <div class="statistic">
+                            <div class="value">3.000</div>
+                            <div class="label">Ventas Mensuales</div>
+                        </div>
+                        <div class="statistic">
+                            <div class="value">98%</div>
+                            <div class="label">Tasa de Retención</div>
+                        </div>
+                    </div>
+                    <div class="widget" id="widget6">
+                        <div class="statistic">
+                            <div class="value">500</div>
+                            <div class="label">Visitas</div>
+                        </div>
+                        <div class="statistic">
+                            <div class="value">500</div>
+                            <div class="label">Reseñas Positivas</div>
+                        </div>
+                        <div class="statistic">
+                            <div class="value">25%</div>
+                            <div class="label">Tasa de Conversión</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Columna derecha -->
+                <div class="col-md-6">
+                    <!-- Contenido de la columna derecha -->
+                    <div class="chart-container">
+                        <canvas id="myChart2" width="500" height="500" style="margin-top: 50px;"></canvas>
+                    </div>
+                </div>
+            </div>
+        }
+
+        else if(Context.Session.GetString("role") == "Productor"){
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="widget" id="widget7">
+                        <div class="statistic">
+                            <div class="value">10</div>
+                            <div class="label">Productos</div>
+                        </div>
+                        <div class="statistic">
+                            <div class="value">25</div>
+                            <div class="label">Ventas</div>
+                        </div>
+                        <div class="statistic">
+                            <div class="value">90%</div>
+                            <div class="label">Tasa de Satisfacción</div>
+                        </div>
+                    </div>
+                    <div class="widget" id="widget8">
+                        <div class="statistic">
+                            <div class="value">6</div>
+                            <div class="label">Clientes Activos</div>
+                        </div>
+                        <div class="statistic">
+                            <div class="value">2.500</div>
+                            <div class="label">Ingresos Mensuales</div>
+                        </div>
+                        <div class="statistic">
+                            <div class="value">85%</div>
+                            <div class="label">Tasa de Retención de Clientes</div>
+                        </div>
+                    </div>
+                    <div class="widget" id="widget9">
+                        <div class="statistic">
+                            <div class="value">300</div>
+                            <div class="label">Visitantes Diarios</div>
+                        </div>
+                        <div class="statistic">
+                            <div class="value">150</div>
+                            <div class="label">Recomendaciones</div>
+                        </div>
+                        <div class="statistic">
+                            <div class="value">20%</div>
+                            <div class="label">Tasa de Conversión</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Columna derecha -->
+                <div class="col-md-6">
+                    <!-- Contenido de la columna derecha -->
+                    <div class="chart-container">
+                        <canvas id="myChart3" width="500" height="500" style="margin-top: 50px;"></canvas>
+                    </div>
+                </div>
+            </div>
+        }
+        
+    } 
+
 </div>
+
+
+
+<script>
+// Datos para el gráfico del rol de superusuario con colores vivos
+var data = {
+    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+    datasets: [{
+        label: 'Ganancias Mensuales (en miles de dólares)',
+        data: [20, 25, 22, 18, 30], // Datos de ganancias para cada mes (en miles de dólares)
+        backgroundColor: [
+            '#4D8CE3',  // Color para enero (Rosa fuerte)
+            '#6F4DE3',   // Color para febrero (Ámbar)
+            '#4D5CE3',     // Color para marzo (Rojo)
+            '#4DBBE3',      // Color para abril (Verde)
+            '#AF6DE6'       // Color para mayo (Azul)
+        ],
+        borderColor: [
+            '#4D8CE3',  // Borde color para enero
+            '#6F4DE3',   // Borde color para febrero
+            '#4D5CE3',     // Borde color para marzo
+            '#4DBBE3',      // Borde color para abril
+            '#AF6DE6'       // Borde color para mayo
+        ],
+        borderWidth: 1
+    }]
+};
+
+// Configuración del gráfico
+var options = {
+    responsive: false, // No permitir que el gráfico sea responsive
+    scales: {
+        y: {
+            beginAtZero: true,
+            callback: function(value) {
+                return value + 'K'; // Agrega 'K' para indicar miles en el eje Y
+            }
+        }
+    }
+};
+
+// Crear el gráfico
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar', // Tipo de gráfico (en este caso, de barras)
+    data: data,
+    options: options
+});
+x
+
+
+
+</script>
 
 <script>
     // Datos para el gráfico
@@ -98,11 +282,57 @@
     };
 
     // Crear el gráfico
-    var ctx = document.getElementById('myChart').getContext('2d');
+    var ctx = document.getElementById('myChart2').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar', // Tipo de gráfico (en este caso, de barras)
         data: data,
         options: options
     });
+</script>
+
+
+<script>
+// Datos para el gráfico del productor con paleta de colores fríos
+var data = {
+    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+    datasets: [{
+        label: 'Ventas',
+        data: [120, 90, 110, 100, 95], // Datos de ventas para cada mes
+        backgroundColor: [
+            'rgba(75, 192, 192, 0.6)',  // Color para enero (verde agua)
+            'rgba(70, 130, 180, 0.6)',  // Color para febrero (azul acero)
+            'rgba(100, 149, 237, 0.6)',  // Color para marzo (azul claro)
+            'rgba(173, 216, 230, 0.6)', // Color para abril (azul cielo)
+            'rgba(135, 206, 250, 0.6)'   // Color para mayo (azul cielo claro)
+        ],
+        borderColor: [
+            'rgba(75, 192, 192, 1)',  // Borde color para enero
+            'rgba(70, 130, 180, 1)',  // Borde color para febrero
+            'rgba(100, 149, 237, 1)',  // Borde color para marzo
+            'rgba(173, 216, 230, 1)', // Borde color para abril
+            'rgba(135, 206, 250, 1)'   // Borde color para mayo
+        ],
+        borderWidth: 1
+    }]
+};
+
+// Configuración del gráfico
+var options = {
+    responsive: false, // No permitir que el gráfico sea responsive
+    scales: {
+        y: {
+            beginAtZero: true
+        }
+    }
+};
+
+// Crear el gráfico
+var ctx = document.getElementById('myChart3').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar', // Tipo de gráfico (en este caso, de barras)
+    data: data,
+    options: options
+});
+
 </script>
 

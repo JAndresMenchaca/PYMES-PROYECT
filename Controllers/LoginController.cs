@@ -2,12 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Proyecto_Pymes.Models;
 using Proyecto_Pymes.Models.DB;
-using PymesDAO.Implementation;
-using System.Data;
-using System.Data.SqlClient;
-using System.Security.Cryptography;
-using System.Text;
 using Microsoft.AspNetCore.Http;//para las secciones
+using Proyecto_Pymes.ExtraModules;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
+
 
 namespace Proyecto_Pymes.Controllers
 {
@@ -15,12 +15,12 @@ namespace Proyecto_Pymes.Controllers
     {
         private readonly DbPymesContext _context;
         private readonly IHttpContextAccessor _contextAccessor;
+        CredentialGeneration credential;
+        public bool band = false;
 
         public LoginController(DbPymesContext context)
         {
             _context = context;
-           
-
         }
 
         public IActionResult Index()
@@ -29,58 +29,110 @@ namespace Proyecto_Pymes.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> Index(Employee user)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index(User user, string Password)
         {
             try
             {
-                using (MD5 md5 = MD5.Create())
-                {
-                    byte[] inputBytes = Encoding.ASCII.GetBytes(user.Password);
-                    byte[] hashBytes = md5.ComputeHash(inputBytes);
-                    var userQuery = await _context.Users.FirstOrDefaultAsync(u => u.UserName == user.UserName && u.Password == hashBytes);
+
+                               
+                    var userQuery = await _context.Users
+                                   .Include(p => p.IdNavigation)
+                                   .FirstOrDefaultAsync(u => u.UserName == user.UserName);
+
+
+
                     if (userQuery != null)
                     {
-                        //var personQuery = await _context.People.FirstOrDefaultAsync(p => p.Id == userQuery.Id);
-                        //_contextAccessor.HttpContext.Session.SetString("UserName", personQuery.Name + " " + personQuery.LastName);
-                        //_contextAccessor.HttpContext.Session.SetString("Rol", userQuery.Role);
+                        //para poder encriptar la contrasenia
+                        credential = new CredentialGeneration();
+                        byte[] pass = credential.PasswordEncryption(Password);
+                   		
 
+					if (userQuery.Password.SequenceEqual(pass))
+                        {
 
-                        //_contextAccessor.HttpContext.Session.SetString("EnterpriseID", "2");
-                        HttpContext.Session.SetString("UserID", userQuery.Id.ToString());//OJO
+                        if(userQuery.Status == 0)
+                        {
+							TempData["Password"] = "Usted no tiene acceso al sistema";
+							return View();
+						}
+
+                        if(userQuery.Role == "AdministradorEmpresa")
+                        {
+                            var BQuery = await _context.BusinessManagers
+                                   .Include(p => p.IdNavigation)
+                                   .FirstOrDefaultAsync(u => u.Id == userQuery.Id);
+
+                            if (BQuery.Status == 2)
+                            {
+                                TempData["Password"] = "Su cuenta esta deshabilitada, contacte al adminstrador";
+                                return View();
+                            }
+                        }
+
+						//bariables de session en comun
+						HttpContext.Session.SetString("UserID", userQuery.Id.ToString());
                         HttpContext.Session.SetString("role", userQuery.Role.ToString());
-                        HttpContext.Session.SetString("userName", userQuery.UserName.ToString());
-                        HttpContext.Session.SetString("EnterpriseID", "2");//OJO----------------------------------------------
-                        return RedirectToAction("Index", "Home");                   
+                        HttpContext.Session.SetString("FullName", userQuery.IdNavigation.Name + "-" + userQuery.IdNavigation.LastName);
+
+                            //para poder recuperar algunos credensiales extra
+                            if (userQuery.Role == "AdministradorEmpresa")
+                            {
+                                var adminEnterprise = await _context.BusinessManagers
+                                    .Include(en => en.IdEnterpriseNavigation)
+                                    .FirstOrDefaultAsync(p => p.Id == userQuery.Id);
+                                if (adminEnterprise != null && adminEnterprise.IdEnterpriseNavigation != null)
+                                {
+                                    HttpContext.Session.SetString("EnterpriseID", adminEnterprise.IdEnterprise.ToString());
+                                    HttpContext.Session.SetString("NameEnterprise", adminEnterprise.IdEnterpriseNavigation.GroupName);
+                                }
+                            }
+
+
+                              //----------------------------------------------------------------------------
+                              var claims = new List<Claim>()
+                               {
+                                   new Claim(ClaimTypes.Name, userQuery.IdNavigation.Name),
+                                   new Claim("UserId", userQuery.Id.ToString()),
+                                   new Claim(ClaimTypes.Role, userQuery.Role)
+                               };
+                              
+                              var claimIdentity = new ClaimsIdentity(claims,
+                                  CookieAuthenticationDefaults.AuthenticationScheme);
+                              
+                              await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                                  new ClaimsPrincipal(claimIdentity)
+                              );
+                              //-----------------------------------------------------------------------------
+     
+                              return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {                                                
+                            TempData["Password"] = "La contraseña es incorrecta. Por favor, inténtelo nuevamente.";
+                        }                     
                     }
                     else
                     {
-                        ViewData["Error"] = "Credenciales incorrectas. Por favor, inténtelo nuevamente.";
-                        return View();
+                        ModelState.AddModelError("UserName", "El nombre de usuario no existe. Por favor, inténtelo nuevamente.");                    
                     }
-                }                  
+                                 
             }
             catch (System.Exception)
             {
-                 ModelState.AddModelError(string.Empty, "Ocurrió un error durante el inicio de sesión");
-                  return View(user);
+                 ModelState.AddModelError(string.Empty, "Ocurrió un error durante el inicio de sesión");         
             }
+           
+            return View(user);
         }
 
 
+        public async Task<IActionResult> Logout(User userF)
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Login");
+        }
 
-
-        //UserImpl employee = new UserImpl();
-        //DataTable table = employee.Login(user.UserName, user.Password);
-
-        //if (table.Rows.Count > 0)
-        //{
-        //    ViewData["Error"] = "";
-        //    return RedirectToAction("Index", "Home");
-        //}
-        //else
-        //{
-        //    ViewData["Error"] = "Credenciales incorrectas. Por favor, inténtelo nuevamente.";
-        //    return View();
-        //}
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,26 +12,31 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Proyecto_Pymes.Models.DB;
+using Proyecto_Pymes.ExtraModules;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Proyecto_Pymes.Controllers
 {
+    [Authorize]
     public class BusinessManagersController : Controller
     {
         private readonly DbPymesContext _context;
+        private string passw;
+        CredentialGeneration credential;
 
         public BusinessManagersController(DbPymesContext context)
         {
             _context = context;
         }
 
-        // GET: BusinessManagers1
+        [Authorize(Roles = "SuperUsuario")]
         public async Task<IActionResult> Index()
         {
-            var dbPymesContext = _context.BusinessManagers.Include(b => b.IdEnterpriseNavigation).Include(b => b.IdNavigation).Where(b => b.Status == 1);
-            return View(await dbPymesContext.ToListAsync());
+            var dbPymesContext = await _context.BusinessManagers.Include(b => b.IdEnterpriseNavigation).Include(b => b.IdNavigation).Where(b => b.Status != 0).ToListAsync();
+            return View( dbPymesContext);
         }
 
-        // GET: BusinessManagers1/Details/5
+        [Authorize(Roles = "SuperUsuario")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.BusinessManagers == null)
@@ -49,18 +56,17 @@ namespace Proyecto_Pymes.Controllers
             return View(businessManager);
         }
 
-        // GET: BusinessManagers1/Create
+        [Authorize(Roles = "SuperUsuario")]
         public IActionResult Create()
         {
-            ViewData["IdEnterprise"] = new SelectList(_context.Enterprises, "Id", "GroupName");
+            ViewData["IdEnterprise"] = new SelectList(_context.Enterprises.Where(e => e.Status == 1), "Id", "GroupName");
             return View();
         }
 
-        // POST: BusinessManagers1/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperUsuario")]
         public async Task<IActionResult> Create(BusinessManager bs)
         {
             using (var transaction = _context.Database.BeginTransaction())
@@ -70,17 +76,17 @@ namespace Proyecto_Pymes.Controllers
                     if (ModelState.IsValid)
                     {
 
-
-
                         //registro para la persona-------------------------------------------------------------------------------------
-                        _context.People.Add(bs.IdNavigation);
+                        var person =  _context.People.Add(bs.IdNavigation);
                         await _context.SaveChangesAsync();
 
-                        string userID = HttpContext.Session.GetString("UserID");
-                        bs.RegisterDate = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), "yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture);
-                        bs.UserId = int.Parse(userID);
+
+                        //registro ala tabla Administrador
+                        bs.Id = person.Entity.Id;
+                        bs.UserId = int.Parse(HttpContext.Session.GetString("UserID"));
                         _context.BusinessManagers.Add(bs);
                         await _context.SaveChangesAsync();
+
 
                         //registro para el Usuario----------------------------------------------------------------------------
                         User user = Credentials(bs.IdNavigation);
@@ -91,6 +97,8 @@ namespace Proyecto_Pymes.Controllers
                         transaction.Commit();
                         //PARA EL MODAL
                         TempData["ShowModal"] = true;
+                        //para el envio de credensiales
+                        credential.sendEmail(bs.IdNavigation.Email, user.UserName, passw, bs.IdNavigation.Name, bs.IdNavigation.LastName, user.Role);
                     }
                 }
                 catch (Exception)
@@ -100,9 +108,11 @@ namespace Proyecto_Pymes.Controllers
                     ModelState.AddModelError(string.Empty, "Ha ocurrido un error en la transacción.");
                 }
             }
-            return View();
+            return View(bs);
         }
 
+
+        [Authorize(Roles = "SuperUsuario")]
         public async Task<IActionResult> Edit(int? id)
         {
            
@@ -117,7 +127,10 @@ namespace Proyecto_Pymes.Controllers
             return View(businessManager);
         }
 
+
+
         [HttpPost]
+        [Authorize(Roles = "SuperUsuario")]
         public async Task<IActionResult> Edit(BusinessManager bs)
         {
             using (var transaction = _context.Database.BeginTransaction())
@@ -125,45 +138,15 @@ namespace Proyecto_Pymes.Controllers
                 try
                 {
                     if (ModelState.IsValid)
-                    {
-                        Person per = bs.IdNavigation;
-                        string sql = @"UPDATE Person
-                                    SET name = @Name, lastName = @LastName, secondLastName = @SecondLastName, email = @Email, phoneNumber = @PhoneNumber, gender = @Gender, ci = @CI ,lastUpdate = CURRENT_TIMESTAMP
-                                    WHERE id = @PersonId; ";
+                    {                   
+                          bs.LastUpdate = DateTime.Now;
+                          bs.IdNavigation.LastUpdate = DateTime.Now;
 
-                        // Crea objetos SqlParameter para los parámetros de la consulta
-                        SqlParameter[] parameters = new SqlParameter[]
-                        {
-                            new SqlParameter("@Name", per.Name),
-                            new SqlParameter("@LastName", per.LastName),
-                            new SqlParameter("@SecondLastName", per.SecondLastName),
-                            new SqlParameter("@Email", per.Email),
-                            new SqlParameter("@PhoneNumber", per.PhoneNumber),
-                            new SqlParameter("@Gender", per.Gender),
-                            new SqlParameter("@CI", per.Ci),
-                            new SqlParameter("@PersonId", bs.Id)//OJO
-                        };
-                        int affectedRows = await _context.Database.ExecuteSqlRawAsync(sql, parameters);
-
-
-                        //para la tabla Productor
-                        string sql1 = @"UPDATE BusinessManager
-                                    SET corporateNumber = @corporateNumber, lastUpdate = CURRENT_TIMESTAMP
-                                    WHERE id = @BusinessManagerId;";
-                        // Crea objetos SqlParameter para los parámetros de la consulta
-                        SqlParameter[] parameters1 = new SqlParameter[]
-                        {
-                            new SqlParameter("@corporateNumber", bs.CorporateNumber),
-                            new SqlParameter("@BusinessManagerId", bs.Id)
-                        };
-                        int affectedRows1 = await _context.Database.ExecuteSqlRawAsync(sql1, parameters1);
-
-                        if (affectedRows > 0 && affectedRows1 > 0)
-                        {
-                            // Si todo ha ido bien, realiza el commit de la transacción
+                           _context.BusinessManagers.Update(bs);
+                           await _context.SaveChangesAsync();
+                        
                             transaction.Commit();
                             TempData["ShowModal"] = true;
-                        }
 
                         return RedirectToAction("Edit", new { id = bs.Id }); // Redirecciona a la página de lista después de la edición
                     }
@@ -184,28 +167,7 @@ namespace Proyecto_Pymes.Controllers
         }
 
 
-        // GET: BusinessManagers1/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null || _context.BusinessManagers == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var businessManager = await _context.BusinessManagers.FindAsync(id);
-        //    if (businessManager == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["IdEnterprise"] = new SelectList(_context.Enterprises, "Id", "Id", businessManager.IdEnterprise);
-        //    ViewData["Id"] = new SelectList(_context.People, "Id", "Id", businessManager.Id);
-        //    return View(businessManager);
-        //}
-
-        // POST: BusinessManagers1/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        // GET: BusinessManagers1/Delete/5
+        [Authorize(Roles = "SuperUsuario")]
         public async Task<IActionResult> Delete(int? id)
         {
             var person = await _context.People.FirstOrDefaultAsync(m => m.Id == id);
@@ -223,6 +185,7 @@ namespace Proyecto_Pymes.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "SuperUsuario")]
         public IActionResult UpdateShowModalDelete(bool value)
         {
             TempData["ShowModalDelete"] = value;
@@ -230,6 +193,7 @@ namespace Proyecto_Pymes.Controllers
         }
 
 
+        [Authorize(Roles = "SuperUsuario")]
         public async Task<IActionResult> ConfirmDelete(int? id)
         {
             if (id == null)
@@ -244,7 +208,25 @@ namespace Proyecto_Pymes.Controllers
             bs.Status = 0; // O es valor Inactivo          
             _context.BusinessManagers.Update(bs);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+
+
+			var userd = await _context.Users
+				.Include(p => p.IdNavigation)
+				.FirstOrDefaultAsync(P => P.Id == bs.Id);
+
+			if (userd == null)
+			{
+				return NotFound();
+			}
+
+
+			userd.Status = 0; // O es valor Inactivo          
+			_context.Users.Update(userd);
+			await _context.SaveChangesAsync();
+
+
+
+			return RedirectToAction("Index");
         }
 
         private bool BusinessManagerExists(int id)
@@ -252,17 +234,25 @@ namespace Proyecto_Pymes.Controllers
           return (_context.BusinessManagers?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
+
+       
         private User Credentials(Person person)
         {
+            credential = new CredentialGeneration();
             User user = new User();
-            string userName = (person.Name[0].ToString() + person.LastName[0].ToString() + person.SecondLastName[0].ToString()).ToUpper() + RandomNumber();
+            //Credensiales
+            string userName = (person.Name[0].ToString() + person.LastName[0].ToString() + RandomNumber());
+            string password = person.Ci.Substring(0, 5) + person.Email.Substring(0, 2);
+            passw = password;
+
             user.Id = person.Id;
             user.UserName = userName;
-            user.Password = PasswordGeneration(person);
+            user.Password = credential.PasswordEncryption(password);
             user.Role = "AdministradorEmpresa";
-            user.UserId = 1;//OJO
+            user.UserId = int.Parse(HttpContext.Session.GetString("UserID"));
             return user;
         }
+
 
         private string RandomNumber()
         {
@@ -275,17 +265,6 @@ namespace Proyecto_Pymes.Controllers
             }
             return num;
         }
-        private byte[] PasswordGeneration(Person person)
-        {
-            using (MD5 md5 = MD5.Create())
-            {
-                string password = person.Ci.Substring(0, 5) + person.Email.Substring(0, 2);
-                byte[] inputBytes = Encoding.ASCII.GetBytes(password);
-                byte[] hashBytes = md5.ComputeHash(inputBytes);
-                return hashBytes;
-            }
-        }
-
 
     }
 }

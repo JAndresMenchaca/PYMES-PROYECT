@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Proyecto_Pymes.Models.DB;
-using PymesDAO.Model;
 using static Azure.Core.HttpHeader;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Proyecto_Pymes.Controllers
 {
+    [Authorize]
     public class EnterpriseController : Controller
     {
 
@@ -18,20 +19,19 @@ namespace Proyecto_Pymes.Controllers
             _context = context;
         }
 
-        //Vista del Index
+        [Authorize(Roles = "SuperUsuario")]
         public async Task<IActionResult> Index()
         {
             var enterprises = await _context.Enterprises
                 .Where(e => e.Status == 1)
-                .Include(e => e.IdTownShipNavigation) // Incluye la relación con la tabla de ciudades
+                .Include(e => e.IdTownShipNavigation)
                 .ToListAsync();
 
             return View(enterprises);
         }
 
 
-
-        //for the create----------------------------------------------------------------------------------
+        [Authorize(Roles = "SuperUsuario")]
         public async Task<IActionResult> Create()
         {
             var towns = await _context.TownShips
@@ -43,7 +43,8 @@ namespace Proyecto_Pymes.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Enterprise enterprise, IFormFile imagen)
+        [Authorize(Roles = "SuperUsuario")]
+        public async Task<IActionResult> Create(Enterprise enterprise, IFormFile? imagen)
         {
             if (ModelState.IsValid)
             {
@@ -54,11 +55,11 @@ namespace Proyecto_Pymes.Controllers
                         imagen.CopyTo(stream);
                         enterprise.Image = stream.ToArray();
                     }
+                }
 
-                    enterprise.UserId = int.Parse(HttpContext.Session.GetString("UserID"));
-                    _context.Enterprises.Add(enterprise);
-                        await _context.SaveChangesAsync();
-                }              
+                enterprise.UserId = int.Parse(HttpContext.Session.GetString("UserID"));
+                _context.Enterprises.Add(enterprise);
+                await _context.SaveChangesAsync();
                 TempData["ShowModal"] = true;
             }
             else
@@ -68,21 +69,25 @@ namespace Proyecto_Pymes.Controllers
                .ToListAsync();
                 ViewBag.TownShips = new SelectList(towns, "Id", "Name");
 
-                using (var stream = new MemoryStream())
+                if (imagen != null)
                 {
-                    imagen.CopyTo(stream);
-                    enterprise.Image = stream.ToArray();
+                    using (var stream = new MemoryStream())
+                    {
+                        imagen.CopyTo(stream);
+                        enterprise.Image = stream.ToArray();
+                    }
                 }
+                
 
             }
             return View(enterprise);
         }
 
-       
 
 
 
-        //para el edit------------------------------------------
+
+        [Authorize(Roles = "SuperUsuario")]
         public async Task<IActionResult> Edit(short id)
         {
             try
@@ -98,6 +103,10 @@ namespace Proyecto_Pymes.Controllers
                     .ToListAsync();
                 // Construir la lista de selección
                 ViewBag.TownShips = new SelectList(towns, "Id", "Name");
+                if (enterprise.Image != null)
+                {
+                    TempData["CurrentImage"] = enterprise.Image;
+                }
 
                 return View(enterprise);
             }
@@ -109,9 +118,21 @@ namespace Proyecto_Pymes.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "SuperUsuario")]
         public async Task<IActionResult> Edit(Enterprise enterprise, IFormFile? imageIF)
         {
-              try
+            try
+            {
+                // Cargar la lista de ciudades disponibles
+                var towns = await _context.TownShips
+                    .Where(t => t.Status == 1)
+                    .ToListAsync();
+
+                // Construir la lista de selección
+                ViewBag.TownShips = new SelectList(towns, "Id", "Name");
+
+                // Validación del formulario
+                if (ModelState.IsValid)
                 {
                     if (imageIF != null && imageIF.Length > 0)
                     {
@@ -119,58 +140,51 @@ namespace Proyecto_Pymes.Controllers
                         {
                             imageIF.CopyTo(stream);
                             enterprise.Image = stream.ToArray();
-                        }              
+                        }
                     }
-                    else{
-                       // var enterpriseOld = await _context.Enterprises.FindAsync(enterprise.Id);
-                        
-                    }
-                    //validasion del form
-                    if (ModelState.IsValid)
-                    {                     
-                            enterprise.LastUpdate = DateTime.Now;
-
-                             _context.Enterprises.Update(enterprise);
-                             await _context.SaveChangesAsync();
-
-                             return RedirectToAction("Index");
-                    }
-                    else
+                    else if (TempData["CurrentImage"] is byte[] currentImage)
                     {
-                        // Si hay errores en el modelo, no se realizará el commit de la transacción
-                        return RedirectToAction("Edit", new { id = enterprise.Id });
+                        // Si no se ha cargado un nuevo archivo, restaura la imagen actual desde TempData
+                        enterprise.Image = currentImage;
                     }
+
+                    enterprise.LastUpdate = DateTime.Now;
+                    _context.Enterprises.Update(enterprise);
+                    await _context.SaveChangesAsync();
+                    TempData["ShowModal"] = true;
                 }
-                catch (Exception ex)
-                {
-                    // Si ocurre un error, puedes manejarlo aquí y realizar un rollback de la transacción si es necesario               
-                    ModelState.AddModelError(string.Empty, "Ocurrió un error al guardar los datos.");
-                    return View(enterprise);
-                }
-            
+            }
+            catch (Exception ex)
+            {
+                // Si ocurre un error, puedes manejarlo aquí y realizar un rollback de la transacción si es necesario
+                ModelState.AddModelError(string.Empty, "Ocurrió un error al guardar los datos");
+            }
+
+            return View(enterprise);
         }
 
 
 
 
 
-        // GET: People/Delete/5
+        [Authorize(Roles = "SuperUsuario")]
         public async Task<IActionResult> Delete(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
             var enterprise = await _context.Enterprises.FirstOrDefaultAsync(e => e.Id == id);
-            //if (enterprise == null)
-            //{
-            //    return NotFound();
-            //}
-            //TempData["EnterpriseID"] =(int)enterprise.Id;
-            //TempData["Name"] = enterprise.GroupName;        
-            //TempData["ShowModalDeleteEnprise"] = true;
+            if (enterprise == null)
+            {
+                return NotFound();
+            }
             return PartialView("DeleteViewPartial",enterprise);
         }
 
 
 
-        //para la confirmasion de la Eliminasion
+        [Authorize(Roles = "SuperUsuario")]
         public async Task<IActionResult> ConfirmDelete(short? id)
         {
             if (id == null)
@@ -182,7 +196,8 @@ namespace Proyecto_Pymes.Controllers
             {
                 return NotFound();
             }
-            enterprise.Status = 0; // O es valor Inactivo          
+
+            enterprise.Status = 0;        
             _context.Enterprises.Update(enterprise);
             await _context.SaveChangesAsync();
 

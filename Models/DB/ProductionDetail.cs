@@ -11,7 +11,7 @@ public partial class ProductionDetail
 
     public int Quantity { get; set; }
 
-    public virtual Manufacturing IdManufacturingNavigation { get; set; } = null!;
+    public virtual Manufacturing? IdManufacturingNavigation { get; set; } = null!;
 
-    public virtual RawMaterial IdRawMaterialNavigation { get; set; } = null!;
+    public virtual RawMaterial? IdRawMaterialNavigation { get; set; } = null!;
 }

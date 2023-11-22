@@ -4,24 +4,26 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 style="color: white;">Registro de Municipio </h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+
+<a asp-action="Create" class="btn" style="background-color: rgb(23, 114, 64); 
+color:white; margin: 20px 20px 20px 0px; font-size: 20px "> Crear🔨</a>
+
+<table class="table" style="color: white;">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+               
+                NOMBRE
             </th>
           
             <th>
-                @Html.DisplayNameFor(model => model.RegisterDate)
+                FECHA DE REGISTRO
             </th>
    
             <th>
-                @Html.DisplayNameFor(model => model.IdTownNavigation)
+                DEPARTAMENTO
             </th>
             <th></th>
         </tr>
@@ -40,9 +42,12 @@
                     @Html.DisplayFor(modelItem => item.IdTownNavigation.Name)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-secondary">
-                            <i class="fas fa-trash"></i> Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn" style="background-color: #1c6eba; color: white; font-size: 17px">
+                     ✏
+                    </a>
+
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn" style="background-color:#ba1c1c; color:white; margin-left: 10px; font-size: 17px ">
+                              🗑</a>
                 </td>
             </tr>
         }

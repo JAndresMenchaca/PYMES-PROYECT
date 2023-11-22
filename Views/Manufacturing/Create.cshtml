@@ -1,0 +1,171 @@
+﻿@model Proyecto_Pymes.Models.DB.Manufacturing;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div style="text-align: center; color:white;">
+    <h2>Agregar Proseso de Produccion</h2>
+</div>
+
+
+<form method="post" action="/Manufacturing/Create" style="color: white">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="">Seleccione un Producto:</label>
+                <select class="form-control" asp-for="IdProduct" asp-items="ViewBag.Products" style="color: black;">
+                    <option value="">Seleccione un Producto</option>
+                </select>
+                <span asp-validation-for="IdProduct" class="text-danger" style="font-size: 12px;"></span>
+            </div>
+            <div class="col-md-6">              
+                <div class="form-group">
+                    <label asp-for="Quantity">Cantidad:</label>
+                    <input asp-for="Quantity" type="number" class="form-control" aria-describedby="helpId" placeholder="Ingrese la cantidad">
+                    <span asp-validation-for="Quantity" class="text-danger" style="font-size: 12px;"></span>
+                </div>             
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="costoAproximado">Ingrese el costo aproximado:</label>
+                    <input asp-for="CostProduction" type="number" class="form-control" id="costoAproximado" aria-describedby="costoAproximadoHelp" placeholder="Costo aproximado">
+                    <span asp-validation-for="CostProduction" class="text-danger" style="font-size: 12px;"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+   @* Datos para seleccionar productos*@
+
+  
+
+    <div class="row my-3">
+        <h6 class="my-4" style=" color:wheat">Por favor, seleccione los insumos que se utilizarán en la producción del producto.</h6>
+        <div class="col-md-6">
+            <div class="row">
+                 <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="selectProducto">Seleccione los Insumos:</label>
+                        <select class="form-control" name="idMateriaPrima" id="selectProducto" asp-items="ViewBag.rawMaterial">
+                            <option value="" disabled selected>Por favor, seleccione un Insumo</option>
+                        </select>
+                        <span class="text-danger">@TempData["Insumos"]</span>
+                    </div>
+                 </div>
+                 <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="">Cantidad:</label>
+                        <input name="CantidadMateria" type="number" value="" class="form-control" aria-describedby="helpId" placeholder="Cantidad">
+                        <span class="text-danger">@TempData["Cantidad"]</span>
+                    </div>
+                 </div>
+
+                <div class="col-md-12">
+                    <button type="submit" name="btnAgregar" class="btn" style="background-color:#15718d; color:white;">Agregar</button>
+                </div>
+            </div>
+        </div>
+       
+
+
+        <div class="col-md-6">
+
+            <div class="col-md-12">
+
+                <table class="table">
+                    <thead style="background-color:#15718d; color:white;">
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model != null && Model.ProductionDetails != null && Model.ProductionDetails.Any())
+                        {
+                            var index = 0;
+                            foreach (var insu in Model.ProductionDetails)
+                            {
+                                <tr>
+
+                                    @* <td>@insu.IdRawMaterial</td>*@
+                                    <td>@insu.IdRawMaterialNavigation.Name</td>
+                                    <td>@insu.Quantity</td>
+                                    <td>@(insu.Quantity * insu.IdRawMaterialNavigation.UnitPrice)</td>
+
+
+                                    <input type="hidden" name="ProductionDetails[@index].IdRawMaterialNavigation.Name" value="@insu.IdRawMaterialNavigation.Name" />
+                                    <input type="hidden" name="ProductionDetails[@index].IdRawMaterialNavigation.UnitPrice" value="@insu.IdRawMaterialNavigation.UnitPrice" />
+                                    <input type="hidden" name="ProductionDetails[@index].IdRawMaterialNavigation.Description" value="@insu.IdRawMaterialNavigation.Description" />
+                                    <input type="hidden" name="ProductionDetails[@index].IdRawMaterialNavigation.Stock" value="@insu.IdRawMaterialNavigation.Stock" />
+
+
+                                    <input type="hidden" name="ProductionDetails[@index].IdRawMaterial" value="@insu.IdRawMaterial" />
+                                    <input type="hidden" name="ProductionDetails[@index].Quantity" value="@insu.Quantity" />
+                                </tr>
+                                index++;
+                            }
+                        }
+                        else
+                        {
+                            <div>
+                                Agrege Los Insumos para la Produccion
+                            </div>
+                        }
+                    </tbody>
+                </table>
+                <span asp-validation-for="ProductionDetails" class="text-danger" style="font-size: 12px;"></span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-md-12 my-3">
+        <div class="row">
+
+            <div class="col-md-3">
+               
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="text-center mx-1">
+                            <button type="submit" name="btnConfirmar" class="btn  btn-block" style="background-color:#15718d; color:white;">Aceptar</button> <!-- Agregamos "btn-block" para que ocupe todo el ancho -->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-center mx-1">
+                            <a asp-action="Index" class="btn btn-block" style="background-color:#bb2727; color:white;">Cancelar</a> <!-- Agregamos "btn-block" para que ocupe todo el ancho -->
+                        </div>
+                    </div>
+                </div>     
+            </div>
+            <div class="col-md-3">
+               
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

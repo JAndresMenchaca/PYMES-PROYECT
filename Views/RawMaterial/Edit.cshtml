@@ -1,0 +1,140 @@
+﻿@model Proyecto_Pymes.Models.DB.RawMaterial;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<div style="text-align: center; color:rgb(255, 255, 255);">
+    <h2>Actualizacion de Insumo</h2>
+</div>
+
+
+<form method="post" action="/RawMaterial/Edit" style="color: white">
+
+
+    <input hidden type="number" asp-for="Id" />
+    <input hidden type="datetime" asp-for="RegisterDate" />
+    <input hidden type="number" asp-for="Status" />
+    <input hidden type="number" asp-for="UserId" />
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="Name">Nombre del Insumo:</label>
+                    <input asp-for="Name" type="text" class="form-control" aria-describedby="helpId" placeholder="Ingrese el nombre del insumo">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="UnitPrice">Precio unitario:</label>
+                    <input asp-for="UnitPrice" type="number" class="form-control" placeholder="Precio Unitario" />
+                    <span asp-validation-for="UnitPrice" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Stock">Cantidad:</label>
+                    <input asp-for="Stock" type="text" class="form-control" aria-describedby="helpId" placeholder="Ingrese una Cantidad">
+                    <span asp-validation-for="Stock" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Description">Descripción:</label>
+                    <textarea asp-for="Description" class="form-control" aria-describedby="helpId" placeholder="Ingrese alguna decepción"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                   @* <label for="">Tipo de Unidad:</label>
+                    <select class="form-control" asp-for="IdUnitType" style="color: black;">
+                        @if (ViewBag.UnitType != null)
+                        {
+                            @foreach (var item in ViewBag.UnitType)
+                            {
+                                <option value="@item.Value" selected="@(item.Value == Model.IdUnitType.ToString())">@item.Text</option>
+                            }
+                        }
+                    </select>*@
+                    <label asp-for="IdUnitType">Tipo de Unidad:</label>
+                    <select class="form-control" asp-for="IdUnitType" asp-items="ViewBag.UnitType" style="color: black;">
+                        <option>Seleccione la Unidad Medida</option>
+                    </select>
+                    <span asp-validation-for="IdUnitType" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="text-center">
+                    <button type="submit" class="btn  btn-md  btn-block " style="background-color:#15718d; color:white;">Aceptar</button> <!-- Agregamos "btn-block" para que ocupe todo el ancho -->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="text-center">
+                    <a asp-action="Index" class="btn  btn-md btn-block " style="background-color:#bb2727; color:white;">Cancelar</a> <!-- Agregamos "btn-block" para que ocupe todo el ancho -->
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Mensaje</h5>
+            </div>
+            <div class="modal-body">
+                ¡El insumo "@Model.Name" se ha actualizado correctamente! <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="modal-footer">
+                <a asp-controller="RawMaterial" asp-action="Index" class="btn btn-warning">Aceptar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*para poder manejar el Modal*@
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    @if (TempData["ShowModal"] as bool? == true)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#exampleModalCenter').modal('show');
+            });
+        </script>
+    }
+}
+

@@ -56,11 +56,7 @@ public partial class DbPymesContext : DbContext
     public virtual DbSet<Warehouse> Warehouses { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-     //    #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-       // => optionsBuilder.UseSqlServer("Server=DESKTOP-ADJ9ORU\\SQLEXPRESS; database=dbPymes; integrated security=true; Encrypt=False;");
-    }
-       
+        => optionsBuilder.UseSqlServer("Name=DefaultConnection");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -451,17 +447,15 @@ public partial class DbPymesContext : DbContext
         {
             entity.ToTable("Sector");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CapacityMax).HasColumnName("capacityMax");
             entity.Property(e => e.IdWareHouse).HasColumnName("idWareHouse");
             entity.Property(e => e.LastUpdate)
                 .HasColumnType("datetime")
                 .HasColumnName("lastUpdate");
             entity.Property(e => e.Name)
-                .HasMaxLength(10)
-                .IsFixedLength()
+                .HasMaxLength(60)
+                .IsUnicode(false)
                 .HasColumnName("name");
             entity.Property(e => e.RegisterDate)
                 .HasDefaultValueSql("(getdate())")
@@ -586,10 +580,7 @@ public partial class DbPymesContext : DbContext
             entity.Property(e => e.UnitPrice)
                 .HasColumnType("decimal(6, 2)")
                 .HasColumnName("unitPrice");
-            entity.Property(e => e.UserId)
-                .HasMaxLength(10)
-                .IsFixedLength()
-                .HasColumnName("userID");
+            entity.Property(e => e.UserId).HasColumnName("userID");
 
             entity.HasOne(d => d.IdRawMaterialNavigation).WithMany(p => p.Supplies)
                 .HasForeignKey(d => d.IdRawMaterial)

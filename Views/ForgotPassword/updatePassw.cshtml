@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pymes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="/css/LoginCss/styleSession.css" rel="stylesheet" />
+</head>
+<body >
+    <div class="container" >
+        <div class="row justify-content-center align-items-center min-vh-100">
+            <div class="col-md-6 d-none d-md-block">
+                <img src="~/images/LoginImg/logoInicio.png" alt="Imagen" class="img-fluid" />
+            </div>
+
+            <div class="col-md-6">
+                <form class="p-5 shadow" id="loginBox" action="/ForgotPassword/updatePassw" method="post" style="background-color:#090a0b">
+                    <div class="d-flex mb-4">
+                        <span class="text-warning" style="font-size: 40px; font-weight:bold; margin-top:0px">|</span>
+                        <h1 class="" style="color:rgb(255, 255, 255)">PYMES</h1>
+                    </div>
+                    <h2 class="mb-4" style="color:rgb(255, 255, 255)">Cambie la contraseña</h2>
+                    <div class="mb-3">
+                        <label for="code" class="form-label" style="color:rgb(255, 255, 255)">Hemos enviado un codigo a su correo electronico, introduzcalo:</label>
+                        <input type="text" class="form-control" id="code" name="code" placeholder="Codigo" required>
+                        <small style="color:red; margin:3px;">@ViewData["Error"]</small>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-warning" id="btnSession">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

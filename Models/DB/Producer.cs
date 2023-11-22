@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Proyecto_Pymes.Models.DB;
 
@@ -7,7 +8,10 @@ public partial class Producer
 {
     public int Id { get; set; }
 
+    [Display(Name = "Ubicación")]
+    [Required(ErrorMessage = "La ubicación es un campo obligatorio. Por favor, seleccione su ubicación.")]
     public string Longitude { get; set; } = null!;
+
 
     public string Latitude { get; set; } = null!;
 

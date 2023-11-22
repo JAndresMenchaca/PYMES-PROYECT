@@ -1,4 +1,4 @@
-﻿
+﻿@model Proyecto_Pymes.Models.DB.User;
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -6,41 +6,55 @@
     Layout = null;
 }
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Inicio Sesion</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link href="~/css/logincss/stylesession.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="/css/LoginCss/styleSession.css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/png" href="/images/navegador.png"/>
 </head>
 <body>
-    <div class="container">
+    <div class="container" >
         <div class="row justify-content-center align-items-center min-vh-100">
             <div class="col-md-6 d-none d-md-block">
-                <img src="~/images/loginimg/logoinicio.png" alt="Imagen" class="img-fluid" />
+                <img src="/images/LoginImg/logoInicio.png" alt="Imagen" class="img-fluid" />
+
             </div>
 
             <div class="col-md-6">
-                <form class="p-5 shadow" id="loginBox" action="@Url.Action("Index","Login")" method="post">
+
+             @*   <div class="error-summary">
+                    <partial name="_ValidationSummary" />
+                </div>*@
+
+                <form class="p-5 shadow" id="loginBox" asp-action="Index" method="post" style="background-color: #090a0b;" >
                     <div class="d-flex mb-4">
-                        <span class="text-warning" style="font-size: 40px; font-weight:bold; margin-top:0px">|</span>
-                        <h1 class="">PYMES</h1>
+                        <span style="font-size: 40px; font-weight:bold; margin-top:0px; color:#ffc128;">|</span>
+                        <h1 class="" style="color:rgb(255, 255, 255);">PYMES</h1>
                     </div>
-                    <h2 class="mb-4">Login</h2>
+                    <h2 class="mb-4" style="color:rgb(255, 255, 255)">Iniciar Sesión</h2>
+
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="UserName" placeholder="Username" required>                
+                        <label for="username" class="form-label" style="color:rgb(255, 255, 255)">Usuario</label>
+                        <input asp-for="UserName" type="text" class="form-control"  placeholder="Usuario" required>
+                        <span asp-validation-for="UserName" class="text-danger"></span>
                     </div>
+
                     <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="Password" placeholder="Password" required>
-                        <small style="color:red; margin:3px;">@ViewData["Error"]</small>
+
+                        <label for="password" class="form-label" style="color:rgb(255, 255, 255)">Contraseña</label>
+                        <input name="Password" type="password" class="form-control" placeholder="Contraseña" required>
+                        <span class="text-danger">@TempData["Password"]</span>
+
+                        <br/>
+                        <a asp-controller="ForgotPassword" asp-action="Index" style="color: #ffc128">Olvide mi contraseña</a>
                     </div>
                    
                     <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-warning" id="btnSession">SIGN-IN</button>
+                        <button type="submit" class="btn " id="btnSession" style="background-color: #ffc128; color:black; ">INGRESAR</button>
                     </div>
                 </form>
             </div>

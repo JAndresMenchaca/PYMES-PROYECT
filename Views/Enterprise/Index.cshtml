@@ -5,32 +5,29 @@
 @{
 }
 
-<h1 style="color: white" ;>
-    Asociaciones
+<h1 style="color: rgb(255, 255, 255)" ;>
+    Asociaciónes
 </h1>
-<p>
-    <div class="text-right">
-        <a asp-action="Create" class="btn btn-warning"> Crear una Nueva Asociasion  </a>
-    </div>
-</p>
-<table class="table" style="color: White">
+<a asp-action="Create" class="btn" style="background-color: rgb(23, 114, 64); 
+color:white; margin: 20px 20px 20px 0px; font-size: 20px "> Crear 🔨</a>
+<table class="table" style="color: rgb(255, 255, 255)">
     <thead>
         <tr>
             <th>
-                Nombre de Asociación
+                NOMBRE DE ASOCIACION
             </th>
             <th>
-                Dirección
+                DIRECCION
             </th>
             <th>
-                Ciudad
+                MUNICIPIO
             </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var enterprise in Model)
         {
-            <tr style="background-color: #808080; color: white;">
+            <tr>
                 <td>
                     @enterprise.GroupName
                 </td>
@@ -38,21 +35,17 @@
                     @enterprise.Address
                 </td>
                 <td>
-                    <!-- Asegúrate de usar el nombre de propiedad correcto -->
-                @enterprise.IdTownShipNavigation.Name
+                    @enterprise.IdTownShipNavigation.Name
                 </td>
                 <td>
                     <div class="btn-group">
-                        <a asp-action="Edit" asp-route-id="@enterprise.Id" class="btn btn-secondary">
-                            <i class="fas fa-edit"></i> Edit
-                        </a>
-                        <a asp-action="Details" asp-route-id="@enterprise.Id" class="btn btn-secondary">
-                            <i class="fas fa-info-circle"></i> Details
-                        </a>
-                        <a asp-action="Delete" asp-route-id="@enterprise.Id" class="btn btn-secondary" data-toggle="modal" data-target="@("#DeleteProduct-" + enterprise.Id)">
-                            <i class="fas fa-trash"></i> Delete
-                        </a>
-                        @await Html.PartialAsync("DeleteViewPartial",enterprise)              
+                        <a asp-action="Edit" asp-route-id="@enterprise.Id" class="btn" style="background-color: #1c6eba; color: white; font-size: 17px; border-radius: 4px ">
+                     ✏
+                    </a>
+
+                    <a asp-action="Delete" asp-route-id="@enterprise.Id" class="btn" data-toggle="modal" data-target="@("#DeleteProduct-" + enterprise.Id)" style="background-color:#ba1c1c; color:white; margin-left: 10px; font-size: 17px; border-radius: 4px">
+                              🗑</a>    
+                                  @await Html.PartialAsync("DeleteViewPartial",enterprise)  
                     </div>
                 </td>
             </tr>
@@ -61,4 +54,45 @@
 </table>
 
 
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmar Eliminación</h5>
+            </div>
+            <div class="modal-body">
+                ¿Está seguro de que desea eliminar el siguiente registro? <br />
+                Nombre: @TempData["Name"]
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <a asp-action="ConfirmDelete" asp-route-id="@TempData["TownShipToDelete"]" class="btn btn-danger">Eliminar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @if (TempData["ShowModalDelete"] as bool? == true)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#exampleModal').modal('show');
+
+
+                $('#exampleModal').on('hidden.bs.modal', function () {
+
+                    $.ajax({
+                        url: '/TownShips/UpdateShowModalDelete',
+                        method: 'POST',
+                        data: { value: false }, // Enviar el valor false al servidor
+                        success: function (data) {
+                            // Opcional: Puedes realizar acciones adicionales después de cambiar el valor
+                        }
+                    });
+                });
+            });
+        </script>
+    }
+}
 

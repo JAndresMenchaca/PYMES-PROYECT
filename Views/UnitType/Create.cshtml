@@ -1,0 +1,98 @@
+﻿@model Proyecto_Pymes.Models.DB.UnitType;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_Layout";
+}
+
+    @if (ViewBag.ShowErrorAlert ?? false)
+    {
+        <div class="alert alert-danger alert-dismissible fade show alert-sm" role="alert" id="myAlert">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+<h4 style="text-align:center; color:rgb(255, 255, 255)">Registrar Unidad de Medida</h4>
+<div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6">
+      
+        <form method="post" action="/UnitType/Create">
+          
+            <div class="form-group">
+                <label asp-for="Type" style="color:rgb(255, 255, 255);" class="control-label">Nombre:</label>
+                <input asp-for="Type" class="form-control" placeholder="Nombre" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" style="color:rgb(255, 255, 255);">Descripción (Opcional):</label>
+                <textarea class="form-control" asp-for="Description" rows="5" placeholder="Ingrese alguna Descripcion" style="color: black;"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-12 my-5 text-center">
+                <div class="row">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <button type="submit" class="btn  btn-md  btn-block " style="background-color:#15718d; color:white;">Aceptar</button>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <a asp-action="Index" class="btn  btn-md btn-block " style="background-color:#bb2727; color:white;">Cancelar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-3">
+    </div>
+</div>
+
+@*para el modal de confirmacion*@
+<div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Mensaje</h5>
+            </div>
+            <div class="modal-body">
+                <p>Registro exitoso! <i class="fas fa-check-circle"></i></p>
+            </div>
+            <div class="modal-footer">
+                <a asp-controller="UnitType" asp-action="Index" class="btn btn-warning">Aceptar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*para poder manejar el Modal*@
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    @if (TempData["ShowModal"] as bool? == true)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#exampleModalCenter').modal('show');
+            });
+        </script>
+    }
+}
+

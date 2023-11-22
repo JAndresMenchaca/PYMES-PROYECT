@@ -1,0 +1,64 @@
+﻿@model List<Proyecto_Pymes.Models.DB.RawMaterial>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.24.0/font/bootstrap-icons.css" rel="stylesheet">
+<h1 style="color: rgb(255, 255, 255)" ;>
+    Insumos
+</h1>
+<a asp-action="Create" class="btn" style="background-color: rgb(23, 114, 64); 
+color:white; margin: 20px 20px 20px 0px; font-size: 20px "> Crear🔨</a>
+<table class="table" style="color:rgb(255, 255, 255);">
+    <thead>
+        <tr>
+            <th>
+                NOMBRE
+            </th>
+            <th>
+                DESCRIPCION
+            </th>
+            <th>
+                PRECIO UNITARIO
+            </th>
+            <th>
+                CANTIDAD
+            </th>
+            <th>
+                MEDIDA
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @foreach (var Insumo in Model)
+        {
+            <tr style=" color: rgb(255, 255, 255);">
+                <td>@Insumo.Name</td>
+                <td>@Insumo.Description</td>
+                <td>@Insumo.UnitPrice</td>
+                <td>@Insumo.Stock</td>
+                <td>@Insumo.IdUnitTypeNavigation.Type</td>
+               
+                <td>
+                    <div class="btn-group">
+                        <a asp-action="Edit" asp-route-id="@Insumo.Id" class="btn" style="background-color: #1c6eba; color: white; font-size: 17px">
+                     ✏
+                    </a>
+
+                      @*  <a asp-action="Details" asp-route-id="@Insumo.Id" class="btn " style="background-color: #ba851c; color: white; margin-left: 10px;">
+                            📑
+                        </a>*@
+
+                        <a asp-action="Delete" asp-route-id="@Insumo.Id" class="btn" style="background-color:#ba1c1c; color:white; margin-left: 10px; font-size: 17px" data-toggle="modal" data-target="@("#DeleteRawMaterial-" + Insumo.Id)">
+                              🗑</a>
+                        @await Html.PartialAsync("DeleteViewPartial",Insumo)
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

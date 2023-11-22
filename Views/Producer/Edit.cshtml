@@ -9,18 +9,29 @@
 
 
 
-    <h1>Editar Productor</h1>
+    <h1 style="text-align:center; color: white" >Editar Productor</h1>
 
-    <form method="post" action="/Producer/Edit">
+    <form method="post" action="/Producer/Edit" style="color: white" >
 
-       <input hidden type="number" asp-for="Id" />
-       
-       <div class="col-md-12">
+       <input hidden asp-for="Id"/>
+       <input hidden asp-for="Status"/>
+        <input hidden asp-for="RegisterDate"/>
+        <input hidden asp-for="UserId"/>
+
+        <input hidden asp-for="IdNavigation.Id"/>
+        <input hidden asp-for="IdNavigation.Status"/>
+        <input hidden asp-for="IdNavigation.RegisterDate"/>
+
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="col-md-12">
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="">Nombre:</label>
-                        <input asp-for="IdNavigation.Name" type="text" class="form-control"  id="" aria-describedby="helpId" placeholder="Nombre">
+                        <input type="text" class="form-control" asp-for="IdNavigation.Name" id="" aria-describedby="helpId" placeholder="Nombre">
+                        <span asp-validation-for="IdNavigation.Name" class="text-danger" style="font-size: 12px;"></span>
                     </div>
                 </div>
             </div>
@@ -31,13 +42,15 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Primer Apellido:</label>
-                        <input asp-for="IdNavigation.LastName" type="text" class="form-control"  id="" aria-describedby="helpId" placeholder="Primer Apellido">
+                        <input type="text" class="form-control" asp-for="IdNavigation.LastName" id="" aria-describedby="helpId" placeholder="Primer Apellido">
+                        <span asp-validation-for="IdNavigation.LastName" class="text-danger" style="font-size: 12px;"></span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="">Segundo Apellido:</label>
-                        <input asp-for="IdNavigation.SecondLastName" type="text" class="form-control"  id="" aria-describedby="helpId" placeholder="Segundo Apellido">
+                        <label for="">Segundo Apellido (Opcional):</label>
+                        <input type="text" class="form-control" asp-for="IdNavigation.SecondLastName" id="" aria-describedby="helpId" placeholder="Segundo Apellido">
+                        <span asp-validation-for="IdNavigation.SecondLastName" class="text-danger" style="font-size: 12px;"></span>
                     </div>
                 </div>
             </div>
@@ -50,13 +63,15 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Celular:</label>
-                        <input asp-for="IdNavigation.PhoneNumber" type="text" class="form-control"  id="" aria-describedby="helpId" placeholder="Celular">
+                        <input type="text" class="form-control" asp-for="IdNavigation.PhoneNumber" id="" aria-describedby="helpId" placeholder="Celular">
+                        <span asp-validation-for="IdNavigation.PhoneNumber" class="text-danger" style="font-size: 12px;"></span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Correo Electronico:</label>
-                        <input asp-for="IdNavigation.Email" type="text" class="form-control"  id="" aria-describedby="helpId" placeholder="Correo Electronico">
+                        <input type="email" class="form-control" asp-for="IdNavigation.Email" id="" aria-describedby="helpId" placeholder="Correo Electronico">
+                        <span asp-validation-for="IdNavigation.Email" class="text-danger" style="font-size: 12px;"></span>
                     </div>
                 </div>
             </div>
@@ -72,12 +87,13 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">CI:</label>
-                                <input asp-for="IdNavigation.Ci" type="text" class="form-control"  id="" aria-describedby="helpId" placeholder="CI">
+                                <input type="text" class="form-control" asp-for="IdNavigation.Ci" id="" aria-describedby="helpId" placeholder="CI">
+                                <span asp-validation-for="IdNavigation.Ci" class="text-danger" style="font-size: 12px;"></span>
                             </div>
                         </div>
 
                         <div class="col-md-12">
-                            <label for="">Sexo:</label>
+                            <label for="">Genero:</label>
                             <br>
                             <div class="form-check form-check-inline">
                                 <input asp-for="IdNavigation.Gender" class="form-check-input" type="radio"  id="inlineRadio1" value="M">
@@ -87,6 +103,7 @@
                                 <input asp-for="IdNavigation.Gender" class="form-check-input" type="radio"  id="inlineRadio2" value="F">
                                 <label class="form-check-label" for="inlineRadio2">Femenino</label>
                             </div>
+                            <span asp-validation-for="IdNavigation.Gender" class="text-danger" style="font-size: 12px;"></span>
 
                         </div>
                     </div>
@@ -99,7 +116,7 @@
                         <div class="col-md-12 my-3">
                             <label for="">Ubicacion : </label>
                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#mapModal">
-                                <i class="fas fa-map"></i> Seleccione su Ubicasion
+                                <i class="fas fa-map"></i> Seleccione su Ubicacion
                             </button>
                         </div>
                         <div class="col-md-12">
@@ -116,6 +133,7 @@
                                         <input type="text" id="longitudeInput" readonly class="form-control" asp-for="Longitude" aria-describedby="helpId" placeholder="Longitud">
                                     </div>
                                 </div>
+                                <span asp-validation-for="Longitude" class="text-danger" style="font-size: 12px;"></span>
                             </div>
                         </div>
                     </div>
@@ -131,12 +149,12 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-dark btn-md  btn-block">Actulizar</button> <!-- Agregamos "btn-block" para que ocupe todo el ancho -->
+                                    <button type="submit" class="btn  btn-md  btn-block" style="background-color:#15718d; color:white;">Actualizar</button> <!-- Agregamos "btn-block" para que ocupe todo el ancho -->
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="text-center">
-                                    <a asp-action="Index" class="btn btn-warning btn-md btn-block">Cancelar</a> <!-- Agregamos "btn-block" para que ocupe todo el ancho -->
+                                    <a asp-action="Index" class="btn  btn-md btn-block" style="background-color:#bb2727; color:white;">Cancelar</a> <!-- Agregamos "btn-block" para que ocupe todo el ancho -->
                                 </div>
                             </div>
                         </div>
@@ -193,6 +211,9 @@
 
 
 @section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
     @if (TempData["ShowModal"] as bool? == true)
     {
         <script>

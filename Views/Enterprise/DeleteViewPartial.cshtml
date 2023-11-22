@@ -14,14 +14,14 @@
             <div style="color:black" class="modal-body">
                 ¿Está seguro de que desea eliminar el siguiente registro? <br />
                 <div>
-                    <p> Asiciasion :  @Model.GroupName</p>
+                    <p> Asociaciones :  @Model.GroupName</p>
                 </div>
             </div>
             <form action="/Enterprise/ConfirmDelete" method="post">
                 <input hidden  asp-for="Id" />                          
                 <div class="modal-footer">          
-                    <a asp-action="Index"  class="btn btn-danger" data-dismiss="modal">Cancelar</a>
-                    <button type="submit" class="btn btn-secondary" >Aceptar</button>
+                    <a asp-action="Index" class="btn btn-secondary" data-dismiss="modal">Cancelar</a>
+                    <button type="submit" class="btn btn-danger" >Eliminar</button>
                 </div>
            </form>
         </div>

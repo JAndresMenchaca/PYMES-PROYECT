@@ -1,71 +1,119 @@
 ﻿@model Proyecto_Pymes.Models.DB.BusinessManager
-
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>BusinessManager</h4>
+<h1 style="text-align:center; color: white">Editar Administrador</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="IdNavigation.Name" class="control-label"></label>
-                <input asp-for="IdNavigation.Name" class="form-control" />
-                <span asp-validation-for="IdNavigation.Name" class="text-danger"></span>
+
+        <form asp-action="Edit" style="color: white">
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <input hidden asp-for="Id" />
+                        @*<input hidden asp-for="Status" />*@
+                        <input hidden asp-for="RegisterDate" />
+                        <input hidden asp-for="UserId" />
+
+                        <input hidden asp-for="IdNavigation.Id" />
+                        <input hidden asp-for="IdNavigation.Status" />
+                        <input hidden asp-for="IdNavigation.RegisterDate" />
+                      
+
+                    <div class="form-group">
+                        <label asp-for="IdNavigation.Name" class="control-label">Nombre:</label>
+                        <input type="text" asp-for="IdNavigation.Name" class="form-control" placeholder="Nombre" />
+                        <span asp-validation-for="IdNavigation.Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IdNavigation.LastName" class="control-label">Primer Apellido:</label>
+                        <input type="text" asp-for="IdNavigation.LastName" class="form-control" placeholder="Primer Apellido" />
+                        <span asp-validation-for="IdNavigation.LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IdNavigation.SecondLastName" class="control-label">Segundo Apellido (Opcional):</label>
+                        <input type="text" asp-for="IdNavigation.SecondLastName" class="form-control" placeholder="Segundo Apellido" />
+                        <span asp-validation-for="IdNavigation.SecondLastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IdNavigation.Email" class="control-label">Email:</label>
+                        <input type="email" asp-for="IdNavigation.Email" class="form-control" placeholder="Email" />
+                        <span asp-validation-for="IdNavigation.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IdNavigation.PhoneNumber" class="control-label">Celular:</label>
+                        <input type="number" asp-for="IdNavigation.PhoneNumber" class="form-control" placeholder="Número de Celular" />
+                        <span asp-validation-for="IdNavigation.PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+
+
+                    <div class="form-group">
+                        <label asp-for="IdNavigation.Ci" class="control-label">CI:</label>
+                        <input type="text" asp-for="IdNavigation.Ci" class="form-control" placeholder="CI" />
+                        <span asp-validation-for="IdNavigation.Ci" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CorporateNumber" class="control-label">Numero Corporativo (Opcional):</label>
+                        <input type="number" asp-for="CorporateNumber" class="form-control" placeholder="Número de Corporativo" />
+                        <span asp-validation-for="CorporateNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                            <label asp-for="IdEnterprise" class="control-label">Asociación:</label>
+                            <select asp-for="IdEnterprise" class="form-control" asp-items="ViewBag.IdEnterprise">                             
+                            </select>
+                            <span asp-validation-for="IdEnterprise" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Genero:</label>
+                        <br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" asp-for="IdNavigation.Gender" id="inlineRadio1" value="M">
+                            <label class="form-check-label" for="inlineRadio1">Masculino</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" asp-for="IdNavigation.Gender" id="inlineRadio2" value="F">
+                            <label class="form-check-label" for="inlineRadio2">Femenino</label>
+                        </div><br />
+                        <span asp-validation-for="IdNavigation.Gender" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Status" class="control-label">Estado:</label> <br />
+                        <select name="Status" asp-for="Status" class="control-label form-control">
+                            <option value="1">Habilitado</option>
+                            <option value="2">Deshabilitado</option>
+                        </select>
+
+                    </div>
+
+
+
+
+
+
+
+                </div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="text-center">
+                        <button type="submit" class="btn  btn-md  btn-block " style="background-color:#15718d; color:white;">Actualizar</button> <!-- Agregamos "btn-block" para que ocupe todo el ancho -->
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-center">
+                        <a asp-action="Index" class="btn  btn-md btn-block " style="background-color:#bb2727; color:white;">Cancelar</a> <!-- Agregamos "btn-block" para que ocupe todo el ancho -->
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="IdNavigation.LastName" class="control-label"></label>
-                <input asp-for="IdNavigation.LastName" class="form-control" />
-                <span asp-validation-for="IdNavigation.LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdNavigation.SecondLastName" class="control-label"></label>
-                <input asp-for="IdNavigation.SecondLastName" class="form-control" />
-                <span asp-validation-for="IdNavigation.SecondLastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdNavigation.Email" class="control-label"></label>
-                <input asp-for="IdNavigation.Email" class="form-control" />
-                <span asp-validation-for="IdNavigation.Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdNavigation.PhoneNumber" class="control-label"></label>
-                <input asp-for="IdNavigation.PhoneNumber" class="form-control" />
-                <span asp-validation-for="IdNavigation.PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdNavigation.Gender" class="control-label"></label>
-                <input asp-for="IdNavigation.Gender" class="form-control" />
-                <span asp-validation-for="IdNavigation.Gender" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdNavigation.Ci" class="control-label"></label>
-                <input asp-for="IdNavigation.Ci" class="form-control" />
-                <span asp-validation-for="IdNavigation.Ci" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CorporateNumber" class="control-label">Numero Corporativo</label>
-                <input asp-for="CorporateNumber" class="form-control" />
-                <span asp-validation-for="CorporateNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdEnterprise" class="control-label">Empresa:</label>
-                <select asp-for="IdEnterprise" class="form-control" asp-items="ViewBag.IdEnterprise"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Edit" class="btn btn-primary" />
+        </div>
             </div>
         </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    
 
 
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
@@ -85,7 +133,7 @@
 </div>
 
 
-</div>
+
 
 
 @section Scripts {

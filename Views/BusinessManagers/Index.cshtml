@@ -4,40 +4,32 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<h1 style="color: white;">Admin. Asociacion</h1>
+<a asp-action="Create" class="btn" style="background-color: rgb(23, 114, 64); 
+color:white; margin: 20px 20px 20px 0px; font-size: 20px "> Crear🔨</a>
+<table class="table" style="color: white;">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.IdNavigation.Name)
+                NOMBRE
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdNavigation.LastName)
+                APELLIDO
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdNavigation.SecondLastName)
+                EMAIL
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdNavigation.Email)
+                TELEFONO
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdNavigation.PhoneNumber)
+                CI
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdNavigation.Gender)
+                EMPRESA
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdNavigation.Ci)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdEnterpriseNavigation.GroupName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CorporateNumber)
+                ESTADO
             </th>
             <th></th>
         </tr>
@@ -52,16 +44,10 @@
                         @Html.DisplayFor(modelItem => item.IdNavigation.LastName)
                 </td>
                 <td>
-                        @Html.DisplayFor(modelItem => item.IdNavigation.SecondLastName)
-                </td>
-                <td>
                         @Html.DisplayFor(modelItem => item.IdNavigation.Email)
                 </td>
                 <td>
                         @Html.DisplayFor(modelItem => item.IdNavigation.PhoneNumber)
-                </td>
-                <td>
-                        @Html.DisplayFor(modelItem => item.IdNavigation.Gender)
                 </td>
                 <td>
                         @Html.DisplayFor(modelItem => item.IdNavigation.Ci)
@@ -70,13 +56,22 @@
                         @Html.DisplayFor(modelItem => item.IdEnterpriseNavigation.GroupName)
                 </td>
                 <td>
-                        @Html.DisplayFor(modelItem => item.CorporateNumber)
+                        @if (item.Status == 1)
+                        {
+                        <span>Habilitado</span>
+                        }
+                        else if (item.Status == 2)
+                        {
+                        <span>Deshabilitado</span>
+                        }
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> ||
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-secondary">
-                        <i class="fas fa-trash"></i> Delete
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn" style="background-color: #1c6eba; color: white; font-size: 17px">
+                      ✏
                     </a>
+
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn" style="background-color:#ba1c1c; color:white; margin-left: 10px; font-size: 17px ">
+                              🗑</a>
                 </td>
             </tr>
         }

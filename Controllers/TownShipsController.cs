@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
@@ -9,6 +10,7 @@ using System.Globalization;
 
 namespace Proyecto_Pymes.Controllers
 {
+    [Authorize]
     public class TownShipsController : Controller
     {
         private readonly DbPymesContext _context;
@@ -18,28 +20,27 @@ namespace Proyecto_Pymes.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "SuperUsuario")]
         public async Task<IActionResult> Index()
         {
-            // Define la consulta SQL para seleccionar todos los municipios
-            //var sql = @" select * from TownShip t ";
-
-            // Ejecuta la consulta SQL y obtén los resultados
-            // var townships = await _context.TownShips.FromSqlRaw(sql).ToListAsync();
             var dbPymesContext = _context.TownShips
              .Include(t => t.IdTownNavigation)
              .Where(t => t.Status == 1);
 
-
             return View(await dbPymesContext.ToListAsync());
-
         }
 
+        [Authorize(Roles = "SuperUsuario")]
         public IActionResult Create()
         {
             ViewData["IdTown"] = new SelectList(_context.Towns, "Id", "Name");
             return View();
         }
+
+
+
         [HttpPost]
+        [Authorize(Roles = "SuperUsuario")]
         public async Task<IActionResult> Create(TownShip townShip)
         {
             using (var transaction = _context.Database.BeginTransaction())
@@ -71,6 +72,8 @@ namespace Proyecto_Pymes.Controllers
             return View();
         }
 
+
+        [Authorize(Roles = "SuperUsuario")]
         public async Task<IActionResult> Edit(short? id)
         {
             if (id == null || _context.TownShips == null)
@@ -88,6 +91,7 @@ namespace Proyecto_Pymes.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "SuperUsuario")]
         public async Task<IActionResult> Edit(TownShip townShip)
         {
             using (var transaction = _context.Database.BeginTransaction())
@@ -138,6 +142,8 @@ namespace Proyecto_Pymes.Controllers
             return (_context.TownShips?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
+
+        [Authorize(Roles = "SuperUsuario")]
         public async Task<IActionResult> Delete(short? id)
         {
             var township = await _context.TownShips.FirstOrDefaultAsync(m => m.Id == id);
@@ -153,13 +159,14 @@ namespace Proyecto_Pymes.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "SuperUsuario")]
         public IActionResult UpdateShowModalDelete(bool value)
         {
             TempData["ShowModalDelete"] = value;
             return Json(new { success = true });
         }
 
-
+        [Authorize(Roles = "SuperUsuario")]
         public async Task<IActionResult> ConfirmDelete(short? id)
         {
             if (id == null)

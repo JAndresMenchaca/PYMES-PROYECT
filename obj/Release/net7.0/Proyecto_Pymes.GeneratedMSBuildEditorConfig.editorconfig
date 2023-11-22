@@ -1,0 +1,265 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Proyecto_Pymes
+build_property.RootNamespace = Proyecto_Pymes
+build_property.ProjectDir = C:\Users\Andre\OneDrive\Escritorio\Proyecto definitivo(Pymes)\Proyecto definitivo(Pymes)\Proyecto_Pymes\Proyecto_Pymes\Proyecto_Pymes\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\Andre\OneDrive\Escritorio\Proyecto definitivo(Pymes)\Proyecto definitivo(Pymes)\Proyecto_Pymes\Proyecto_Pymes\Proyecto_Pymes
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/BusinessManagers/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnVzaW5lc3NNYW5hZ2Vyc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/BusinessManagers/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnVzaW5lc3NNYW5hZ2Vyc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/BusinessManagers/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnVzaW5lc3NNYW5hZ2Vyc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/BusinessManagers/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnVzaW5lc3NNYW5hZ2Vyc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/BusinessManagers/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnVzaW5lc3NNYW5hZ2Vyc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Categories/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Categories/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Categories/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Categories/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Categories/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Enterprise/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50ZXJwcmlzZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Enterprise/DeleteViewPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50ZXJwcmlzZVxEZWxldGVWaWV3UGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Enterprise/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50ZXJwcmlzZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Enterprise/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50ZXJwcmlzZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/ForgotPassword/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9yZ290UGFzc3dvcmRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/ForgotPassword/newPassw.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9yZ290UGFzc3dvcmRcbmV3UGFzc3cuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/ForgotPassword/updatePassw.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9yZ290UGFzc3dvcmRcdXBkYXRlUGFzc3cuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Home/Develop.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEZXZlbG9wLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Login/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Manufacturing/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFudWZhY3R1cmluZ1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Manufacturing/DeleteViewPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFudWZhY3R1cmluZ1xEZWxldGVWaWV3UGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Manufacturing/DetailViewPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFudWZhY3R1cmluZ1xEZXRhaWxWaWV3UGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Manufacturing/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFudWZhY3R1cmluZ1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Producer/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjZXJcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Producer/DeleteViewPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjZXJcRGVsZXRlVmlld1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Producer/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjZXJcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Producer/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Products/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Products/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Products/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Products/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Products/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/RawMaterial/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF3TWF0ZXJpYWxcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/RawMaterial/DeleteViewPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF3TWF0ZXJpYWxcRGVsZXRlVmlld1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/RawMaterial/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF3TWF0ZXJpYWxcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/RawMaterial/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF3TWF0ZXJpYWxcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Sectors/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VjdG9yc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Sectors/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VjdG9yc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Sectors/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VjdG9yc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Sectors/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VjdG9yc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Sectors/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VjdG9yc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/TownShips/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG93blNoaXBzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/TownShips/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG93blNoaXBzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/TownShips/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG93blNoaXBzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/TownShips/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG93blNoaXBzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/TownShips/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG93blNoaXBzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/UnitType/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVW5pdFR5cGVcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/UnitType/DeleteViewPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVW5pdFR5cGVcRGVsZXRlVmlld1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/UnitType/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVW5pdFR5cGVcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/UnitType/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVW5pdFR5cGVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Warehouses/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FyZWhvdXNlc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Warehouses/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FyZWhvdXNlc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Warehouses/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FyZWhvdXNlc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Warehouses/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FyZWhvdXNlc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Warehouses/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FyZWhvdXNlc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andre/OneDrive/Escritorio/Proyecto definitivo(Pymes)/Proyecto definitivo(Pymes)/Proyecto_Pymes/Proyecto_Pymes/Proyecto_Pymes/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-fh030avzyb

@@ -8,30 +8,31 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Data.SqlClient;
 using System.Reflection;
+using System.Net.Mail;
+using System.Net;
+using Proyecto_Pymes.ExtraModules;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Proyecto_Pymes.Controllers
 {
+    [Authorize]
     public class ProducerController : Controller
     {
 
         private readonly DbPymesContext _context;
+        private string passw;
+        CredentialGeneration credential;
 
         public ProducerController(DbPymesContext context)
         {
             _context = context;
         }
-        //para poder recuperar los datos
+
+        [Authorize(Roles = "AdministradorEmpresa")]
         public async Task<IActionResult> Index()
         {
-            //var sql = @"SELECT *
-            //            FROM Person
-            //            WHERE id IN (
-            //                SELECT pr.id
-            //                FROM Enterprise e
-            //                INNER JOIN producerCompany pc ON e.id = pc.idEnterprise
-            //                INNER JOIN Producer pr ON pr.id = pc.idProducer
-            //                WHERE pr.status = 1 AND e.id = @EnterpriseId )";
-            ////recuperamos el id de la empresa don de se filtrar los productores
+          
+            try{
             int enterpriseId = int.Parse( HttpContext.Session.GetString("EnterpriseID"));      
             var producer = await _context.Producers
                          .Include(pr => pr.IdNavigation) // Mueve la llamada a Include antes de Select
@@ -41,25 +42,26 @@ namespace Proyecto_Pymes.Controllers
                              pc => pc.IdProducer,
                              (p, pc) => new { Producer = p, ProducerCompany = pc }
                          )
-                         .Where(e => e.Producer.Status == 1 && e.ProducerCompany.IdEnterprise == enterpriseId)                
+                         .Where(e => e.ProducerCompany.Status == 1 && e.ProducerCompany.IdEnterprise == enterpriseId)                
                          .Select(e => e.Producer) // Proyecta solo la entidad Producer
                          .ToListAsync();
 
             return View(producer);
+            }
+            catch{
+                return RedirectToAction("Privacy", "Home");
+            }
         }
 
 
-        /// <summary>
-        /// para el Insert de Productor------------------------------------------------------------------------------------------------------------
-        /// </summary>
-        /// <returns></returns>
-        // GET: People/Create
+        [Authorize(Roles = "AdministradorEmpresa")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "AdministradorEmpresa")]
         public async Task<IActionResult> Create(Producer producer)
         {
             using (var transaction = _context.Database.BeginTransaction())
@@ -68,36 +70,39 @@ namespace Proyecto_Pymes.Controllers
                 {
                     if (ModelState.IsValid)
                     {
+
                         //registro para la persona-------------------------------------------------------------------------------------
-                        _context.People.Add(producer.IdNavigation);
+                        var person = await  _context.People.AddAsync(producer.IdNavigation);
                         await _context.SaveChangesAsync();
 
                         //registro para el Productor---------------------------------------------------------------------------------
-                        int personId = producer.IdNavigation.Id;
-                        producer.Id = personId;//OJO------------------------------------
-                        string userID = HttpContext.Session.GetString("UserID");
-                        producer.UserId = int.Parse(userID);
-                        _context.Producers.Add(producer);
+                      
+
+                        producer.Id = person.Entity.Id;            
+                        producer.UserId = int.Parse(HttpContext.Session.GetString("UserID"));
+                        await  _context.Producers.AddAsync(producer);
                         await _context.SaveChangesAsync();
 
                         //registro para el Usuario----------------------------------------------------------------------------
                         User user = Credentials(producer.IdNavigation);
-                        _context.Users.Add(user);
+                        await _context.Users.AddAsync(user);
                         await _context.SaveChangesAsync();
 
+
                         //registro para la tabla de muchos a muchos---------------------------------------------------------------------
-                        ProducerCompany company= new ProducerCompany();
-                        string enterpriseId = HttpContext.Session.GetString("EnterpriseID");
-                        company.IdProducer = personId;
-                        company.IdEnterprise = short.Parse(enterpriseId);//OJO----------------------------------
+                        ProducerCompany company= new ProducerCompany();                      
+                        company.IdProducer = person.Entity.Id;
+                        company.IdEnterprise = short.Parse(HttpContext.Session.GetString("EnterpriseID"));
                         company.StartDate = DateTime.Now;
-                        _context.ProducerCompanies.Add(company);
+
+                        await _context.ProducerCompanies.AddAsync(company);
                         await _context.SaveChangesAsync();
 
                         // Commit la transacción si todo fue exitoso
                         transaction.Commit();
                         //PARA EL MODAL
                         TempData["ShowModal"] = true;
+                        credential.sendEmail(producer.IdNavigation.Email, user.UserName, passw, producer.IdNavigation.Name, producer.IdNavigation.LastName, user.Role);
                     }
                 }
                 catch (Exception)
@@ -110,15 +115,24 @@ namespace Proyecto_Pymes.Controllers
             return View();
         }
 
+
+
+
         private User Credentials(Person person)
         {
+            credential = new CredentialGeneration();
             User user = new User();
-            string userName = (person.Name[0].ToString() + person.LastName[0].ToString() + person.SecondLastName[0].ToString()).ToUpper() + RandomNumber();
+            string userName = (person.Name[0].ToString() + person.LastName[0].ToString() + RandomNumber());
+            string password = person.Ci.Substring(0, 5) + person.Email.Substring(0, 2);
+            passw = password;
+
+
             user.Id = person.Id;
             user.UserName = userName;
-            user.Password = PasswordGeneration(person);
+            user.Password = credential.PasswordEncryption(password);
             user.Role = "Productor";
-            user.UserId = 1;//OJO
+            user.UserId = int.Parse(HttpContext.Session.GetString("UserID"));
+
             return user;
         }
 
@@ -133,23 +147,10 @@ namespace Proyecto_Pymes.Controllers
             }
             return num;
         }
-        private byte[] PasswordGeneration(Person person)
-        {
-            using (MD5 md5 = MD5.Create())
-            {
-                string password = person.Ci.Substring(0, 5) + person.Email.Substring(0,2);
-                byte[] inputBytes = Encoding.ASCII.GetBytes(password);
-                byte[] hashBytes = md5.ComputeHash(inputBytes);
-                return hashBytes;
-            }
-        }
 
 
-        //para poder Editar al Productor
-        // GET: People/Create
-        // GET: People/Delete/5
 
-        // GET: People/Edit/5
+        [Authorize(Roles = "AdministradorEmpresa")]
         public async Task<IActionResult> Edit(int? id)
         {        
             var prod = await _context.Producers.FindAsync(id);
@@ -163,7 +164,11 @@ namespace Proyecto_Pymes.Controllers
             return View(prod);
         }
 
+
+
+
         [HttpPost]
+        [Authorize(Roles = "AdministradorEmpresa")]
         public async Task<IActionResult> Edit(Producer producer)
         {
             using (var transaction = _context.Database.BeginTransaction())
@@ -172,45 +177,15 @@ namespace Proyecto_Pymes.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        Person per = producer.IdNavigation;
-                        string sql = @"UPDATE Person
-                                    SET name = @Name, lastName = @LastName, secondLastName = @SecondLastName, email = @Email, phoneNumber = @PhoneNumber, gender = @Gender, ci = @CI ,lastUpdate = CURRENT_TIMESTAMP
-                                    WHERE id = @PersonId; ";
+                            producer.LastUpdate = DateTime.Now;
+                            producer.IdNavigation.LastUpdate = DateTime.Now;
 
-                        // Crea objetos SqlParameter para los parámetros de la consulta
-                        SqlParameter[] parameters = new SqlParameter[]
-                        {
-                            new SqlParameter("@Name", per.Name),
-                            new SqlParameter("@LastName", per.LastName),
-                            new SqlParameter("@SecondLastName", per.SecondLastName),
-                            new SqlParameter("@Email", per.Email),
-                            new SqlParameter("@PhoneNumber", per.PhoneNumber),
-                            new SqlParameter("@Gender", per.Gender),
-                            new SqlParameter("@CI", per.Ci),
-                            new SqlParameter("@PersonId", producer.Id)//OJO
-                        };
-                        int affectedRows = await _context.Database.ExecuteSqlRawAsync(sql, parameters);
-
-
-                        //para la tabla Productor
-                        string sql1 = @"UPDATE Producer
-                                    SET longitude = @Longitude, latitude = @Latitude, lastUpdate = CURRENT_TIMESTAMP
-                                    WHERE id = @ProducerId;";
-                        // Crea objetos SqlParameter para los parámetros de la consulta
-                        SqlParameter[] parameters1 = new SqlParameter[]
-                        {
-                            new SqlParameter("@Longitude", producer.Longitude),
-                            new SqlParameter("@Latitude", producer.Latitude),
-                            new SqlParameter("@ProducerId", producer.Id)
-                        };
-                        int affectedRows1 = await _context.Database.ExecuteSqlRawAsync(sql1, parameters1);
-
-                        if (affectedRows > 0 && affectedRows1 > 0)
-                        {
+                            _context.Producers.Update(producer);
+                            await _context.SaveChangesAsync();
                             // Si todo ha ido bien, realiza el commit de la transacción
                             transaction.Commit();
                             TempData["ShowModal"] = true;
-                        }
+                       // }
 
                         return RedirectToAction("Edit", new { id = producer.Id }); // Redirecciona a la página de lista después de la edición
                     }
@@ -232,34 +207,53 @@ namespace Proyecto_Pymes.Controllers
 
 
 
-        // GET: People/Delete/5
+        [Authorize(Roles = "AdministradorEmpresa")]
         public async Task<IActionResult> Delete(int? id)
         {
-            var producer = await _context.Producers.FirstOrDefaultAsync(P => P.Id == id);                          
-            if (producer == null)
+            var producer = await _context.Producers
+                .Include(p => p.IdNavigation)
+                .FirstOrDefaultAsync(P => P.Id == id);
+
+			if (producer == null)
             {
                 return NotFound();
             }
-          
-            return PartialView("DeleteViewPartial", producer);
+
+			return PartialView("DeleteViewPartial", producer);
         }
 
+        [Authorize(Roles = "AdministradorEmpresa")]
         public async Task<IActionResult> ConfirmDelete(int? id)
         {
+            int enterpriseId = int.Parse(HttpContext.Session.GetString("EnterpriseID"));
             if (id == null)
             {
                 return NotFound();
             }
-            var producer = await _context.Producers.FindAsync(id);
+            var producer = await _context.ProducerCompanies.Where(p => p.IdProducer == id && p.IdEnterprise == enterpriseId && p.Status == 1).FirstAsync();
             if (producer == null)
             {
                 return NotFound();
             }   
             producer.Status = 0; // O es valor Inactivo          
-            _context.Producers.Update(producer);
+            _context.ProducerCompanies.Update(producer);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
 
+			var userd = await _context.Users
+				.Include(p => p.IdNavigation)
+				.FirstOrDefaultAsync(P => P.Id == producer.IdProducer);
+
+			if (userd == null)
+			{
+				return NotFound();
+			}
+
+
+			userd.Status = 0; // O es valor Inactivo          
+			_context.Users.Update(userd);
+			await _context.SaveChangesAsync();
+
+			return RedirectToAction("Index");
+        }
     }
 }

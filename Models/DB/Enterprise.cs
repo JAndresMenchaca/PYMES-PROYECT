@@ -2,22 +2,35 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace Proyecto_Pymes.Models.DB;
 
 public partial class Enterprise
 {
     public short Id { get; set; }
 
-    [Required(ErrorMessage = "Campo Obligatorio")]
+    [Display(Name = "Nombre de la Agrupación")]
+    [Required(ErrorMessage = "El campo es obligatorio.")]
+    [StringLength(100, ErrorMessage = "El campo {0} debe tener entre {2} y {1} caracteres.", MinimumLength = 3)]
+    [RegularExpression("^[A-Za-záéíóúüÁÉÍÓÚÜñÑ0-9\\s*]+$", ErrorMessage = "Solo se permiten letras, números.")]
     public string GroupName { get; set; } = null!;
 
-    [Required(ErrorMessage = "Campo Obligatorio")]
+
+    [Display(Name = "Dirección")]
+    [Required(ErrorMessage = "El campo es obligatorio.")]
+    [StringLength(149, ErrorMessage = "El campo {0} debe tener entre {2} y {1} caracteres.", MinimumLength = 2)]
+    [RegularExpression("^[A-Za-záéíóúüÁÉÍÓÚÜñÑ0-9#,.\\s]+$", ErrorMessage = "Solo se permiten letras, números y los caracteres #,-,.,(,)")]
     public string Address { get; set; } = null!;
 
-    [DataType(DataType.Upload)]
-    public byte[]? Image { get; set; } = null!;
 
-    [Required(ErrorMessage = "Campo Obligatorio")]
+    //Acepta Nulos
+    public byte[]? Image { get; set; }
+
+
+    [Display(Name = "Descripción")]
+    [Required(ErrorMessage = "El campo es obligatorio.")]
+    [StringLength(149, ErrorMessage = "El campo {0} debe tener entre {2} y {1} caracteres.", MinimumLength = 3)]
+    [RegularExpression("^[A-Za-záéíóúüÁÉÍÓÚÜñÑ0-9\\s*]+$", ErrorMessage = "Solo se permiten letras, números.")]
     public string Description { get; set; } = null!;
 
     public byte Status { get; set; }
@@ -28,7 +41,7 @@ public partial class Enterprise
 
     public int UserId { get; set; }
 
-    [Required(ErrorMessage = "Campo Obligatorio")]
+    [Required(ErrorMessage = "Por favor, selecciona un Municipio.")]
     public short IdTownShip { get; set; }
 
     public virtual ICollection<BusinessManager> BusinessManagers { get; set; } = new List<BusinessManager>();

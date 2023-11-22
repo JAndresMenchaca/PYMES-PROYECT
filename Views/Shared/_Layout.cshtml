@@ -3,23 +3,24 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebApplication1</title>
+    <title>@ViewData["Title"] - PYMES</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/css/adminlte.min.css">
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css" asp-append-version="true" />
+    <link rel="shortcut icon" type="image/png" href="/images/LoginImg/rompecabezas.png"/>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper">
+<body class="hold-transition sidebar-mini layout-fixed" >
+    <div class="wrapper" >
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light" id="navPrincipal">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button" style="color: white;"><i class="fas fa-bars"></i></a>
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button" style="color:black"><i class="fas fa-bars"></i></a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -29,17 +30,29 @@
             </ul>
         </nav>
         <!-- Sidebar -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4 lateralBar">
+        <aside class="main-sidebar  elevation-4 lateralBar">
             @* <a href="#" class="brand-link">
             <span class="brand-text font-weight-light">UNDERGAME</span>
             </a> *@
             <div class="user-panel d-flex" id="sec1">
                 <div class="image imgUser">
-                    <a asp-action="Index"><img src="~/images/loginimg/rompecabezas.png" /></a>
+                    <a asp-controller="Home" asp-action="Index"><img src="/images/LoginImg/rompecabezas.png" /></a>
                 </div>
 
-                <div class="info" style="margin-left: 18px; padding:auto">
-                    <p id="enterprise-name">ENTERPRISE</p>
+                <div class="info" style="margin-left: 12px; padding:auto">
+                    @{
+                        
+                        if(Context.Session.GetString("role") == "SuperUsuario"){
+                            <p id="enterprise-name">Super Usuario</p>
+                        }
+                        else if(Context.Session.GetString("role") == "AdministradorEmpresa"){
+                            <p id="enterprise-name">Admin. Empresa</p>
+                        }
+                        else if(Context.Session.GetString("role") == "Productor"){
+                            <p id="enterprise-name">Productor</p>
+                        }
+                        
+                        } 
                 </div>
 
             </div>
@@ -47,11 +60,11 @@
             <nav class="mt-2">
                 <div class="user-panel d-flex" id="sec1">
                     <div class="image imgUser">
-                        <a href=""><img src="~/images/loginimg/hombre.png" class="img-circle elevation-2" alt="User Image" /></a>
+                        <a href=""><img src="/images/LoginImg/hombre.png" class="img-circle elevation-2" alt="User Image" /></a>
                     </div>
 
-                    <div class="info" style="margin-left: 18px; padding:auto">
-                        <p id="user-name">@Context.Session.GetString("userName")</p>
+                    <div class="info" style="margin-left: 12px; padding:auto">
+                        <p id="user-name">@Context.Session.GetString("FullName")</p>
                     </div>
 
                 </div>
@@ -61,114 +74,155 @@
                     @{
 
                         string rol = Context.Session.GetString("role");
-                        if (rol == "Productor" || rol == "AdministradorEmpresa" || rol == "SuperUsuario")
+
+                        //if ( rol == "SuperUsuario")
+                        @if (User.IsInRole("SuperUsuario"))
                         {
-                            <li class="nav-item menu-open closed">
+                            <li class="nav-item menu-open closed" >
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-gamepad"></i>
-                                    <p>
-                                        Producción
+                                    💼
+                                    <p style="color:white;">
+                                        Administración
                                         <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
+
+
                                     <li class="nav-item">
-                                        <a asp-action="ProductCRUD" class="nav-link">
-                                            <i class="fa-plane fas nav-icon"></i>
-                                            <p>Productos</p>
+                                        <a asp-controller="TownShips" asp-action="Index" class="nav-link">
+                                            🏙️
+                                            <p style="color:white;">Municipios</p>
                                         </a>
                                     </li>
+                                  
+
                                     <li class="nav-item">
-                                        <a asp-controller="Producer" asp-action="Index" class="nav-link">
-                                            <i class="fas fa-list-alt nav-icon"></i>
-                                            <p>Productor</p>
+                                        <a asp-controller="BusinessManagers" asp-action="Index" class="nav-link">
+                                            🏢
+                                            <p style="color:white;">Admin. Asociación</p>
                                         </a>
                                     </li>
+
+                                    <li class="nav-item">
+                                        <a asp-controller="Enterprise" asp-action="Index" class="nav-link">
+                                            🏬
+                                            <p style="color:white;">Asociación</p>
+                                        </a>
+                                    </li>
+
                                 </ul>
                             </li>
                         }
-                        if (rol == "AdministradorEmpresa" || rol == "SuperUsuario")
+
+
+                        @if (User.IsInRole("AdministradorEmpresa"))
                         {
                             <li class="nav-item menu-open closed">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-gamepad"></i>
-                                    <p>
-                                        Administrador
+                                    👨‍💻
+                                    <p style="color:white;">
+                                        Adm. Productores
                                         <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a asp-action="ProductCRUD" class="nav-link">
-                                            <i class="fa-plane fas nav-icon"></i>
-                                            <p>Productos</p>
-                                        </a>
-                                    </li>
+                                  
                                     <li class="nav-item">
                                         <a asp-controller="Producer" asp-action="Index" class="nav-link">
-                                            <i class="fas fa-list-alt nav-icon"></i>
-                                            <p>Productor</p>
+                                            📦
+                                            <p style="color:white;">Productor</p>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="BusinessManagers" class="nav-link">
-                                            <i class="fas fa-list-alt nav-icon"></i>
-                                            <p>Admin. Empresa</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="TownShips" class="nav-link">
-                                            <i class="fas fa-users nav-icon"></i>
-                                            <p>Municipios</p>
-                                        </a>
-                                    </li>
+                                   
+                                   
                                    
                                 </ul>
                             </li>
                         }
-                        if (rol == "SuperUsuario")
+                        @if (User.IsInRole("Productor"))
                         {
                             <li class="nav-item menu-open closed">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-gamepad"></i>
-                                    <p>
-                                        Super Usuario
+                                    🗃️
+                                    <p style="color:white;">
+                                        Admin. Productos
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+
+                                    <li class="nav-item">
+                                        <a asp-controller="Products" asp-action="Index" class="nav-link">
+                                            📦
+                                            <p style="color:white;">Productos</p>
+                                        </a>
+                                    </li>
+
+
+                                    <li class="nav-item">
+                                        <a asp-controller="RawMaterial" asp-action="Index" class="nav-link">
+                                            🧱
+                                            <p style="color:white;">Insumos</p>
+                                        </a>
+                                    </li>
+
+
+                                    <li class="nav-item">
+                                        <a asp-controller="UnitType" asp-action="Index" class="nav-link">
+                                            📏
+                                            <p style="color:white;">Unidad Medida</p>
+                                        </a>
+                                    </li>
+
+
+                                    <li class="nav-item">
+                                        <a asp-controller="Manufacturing" asp-action="Index" class="nav-link">
+                                            ♨️
+                                            <p style="color:white;">Produccion</p>
+                                        </a>
+                                     </li>
+
+
+                                    <li class="nav-item">
+                                        <a asp-controller="Categories" asp-action="Index" class="nav-link">
+                                            🏷️
+                                            <p style="color:white;">Categoria</p>
+                                        </a>
+                                    </li>
+
+  
+                                </ul>
+
+                            </li>
+
+                             <li class="nav-item menu-open closed">
+                                <a href="#" class="nav-link">
+                                    📦
+                                    <p style="color:white;">
+                                        Almacen
                                         <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a asp-action="ProductCRUD" class="nav-link">
-                                            <i class="fa-plane fas nav-icon"></i>
-                                            <p>Product</p>
+                                        <a asp-controller="Warehouses" asp-action="Index" class="nav-link">
+                                            🚚
+                                            <p style="color:white;">Gestion de Almacen</p>
                                         </a>
                                     </li>
+
                                     <li class="nav-item">
-                                        <a asp-controller="Producer" asp-action="Index" class="nav-link">
-                                            <i class="fas fa-list-alt nav-icon"></i>
-                                            <p>Productor</p>
+                                        <a asp-controller="Sectors" asp-action="Index" class="nav-link">
+                                            📍
+                                            <p style="color:white;">Sector en Almacen</p>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="BusinessManagers" class="nav-link">
-                                            <i class="fas fa-list-alt nav-icon"></i>
-                                            <p>Admin. Empresa</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="../../index3.html" class="nav-link">
-                                            <i class="fas fa-shopping-bag nav-icon"></i>
-                                            <p>Products</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a asp-controller="Enterprise" asp-action="Index" class="nav-link">
-                                            <i class="fas fa-users nav-icon"></i>
-                                            <p>Empresa</p>
-                                        </a>
-                                    </li>
+
                                 </ul>
-                            </li>
+                              </li>
+        
+
                         }
 
                     }
@@ -177,43 +231,36 @@
 
 
 
-
-
-
-
-
-
-
                     <li class="nav-item">
-                        <a asp-action="Users" class="nav-link">
-                            <i class="nav-icon fas fa-address-card "></i>
-                            <p>
-                                User
+                        <a asp-controller="Home" asp-action="Develop" class="nav-link">
+                            👤
+                            <p style="color:white;">
+                                Usuario
                             </p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="../gallery.html" class="nav-link">
-                            <i class="nav-icon fas fa-cog"></i>
-                            <p>
-                                Settings
+                        <a asp-controller="Home" asp-action="Develop" class="nav-link">
+                            ⚙️
+                            <p style="color:white;">
+                                Ajustes
                             </p>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="../../iframe.html" class="nav-link">
-                            <p style="opacity:.8">Help</p>
+                        <a asp-controller="Home" asp-action="Develop" class="nav-link">
+                            <p style="opacity:.8">Ayuda</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="https://adminlte.io/docs/3.1/" class="nav-link">
-                            <p style="opacity:.8">Contact us</p>
+                        <a asp-controller="Home" asp-action="Develop" class="nav-link">
+                            <p style="opacity:.8">Contacto</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a asp-controller="Login" asp-action="Index" class="nav-link">
-                            <p style="opacity:.8">Log out</p>
+                        <a asp-controller="Login" asp-action="Logout" class="nav-link">
+                            <p style="opacity:.8">Salir</p>
                         </a>
                     </li>
 
@@ -231,13 +278,14 @@
             </div>
         </div>
         <!-- Footer -->
-        <footer class="main-footer">
+        @* <footer class="main-footer" style=" color: black;">
             <div class="float-right d-none d-sm-inline">
                 Version 1.0
             </div>
             &copy; 2023 - WebApplication1
-        </footer>
+        </footer> *@
     </div>
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
    @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>  OJO*@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/js/adminlte.min.js"></script>

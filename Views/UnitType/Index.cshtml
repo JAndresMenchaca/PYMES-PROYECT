@@ -1,0 +1,47 @@
+﻿@model List<Proyecto_Pymes.Models.DB.UnitType>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_Layout";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.24.0/font/bootstrap-icons.css" rel="stylesheet">
+<h1 style="color:rgb(255, 255, 255)" ;>
+    Unidad de Medida
+</h1>
+<a asp-action="Create" class="btn" style="background-color: rgb(23, 114, 64); 
+color:white; margin: 20px 20px 20px 0px; font-size: 20px "> Crear🔨</a>
+<table class="table" style="color:rgb(255, 255, 255)">
+    <thead>
+        <tr>
+            <th>
+                NOMBRE
+            </th>
+            <th>
+                DESCRIPCION
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var unitType in Model)
+        {
+            <tr style=" color:rgb(255, 255, 255)">
+                <td>@unitType.Type</td>
+                <td>@unitType.Description</td>
+               
+                <td>
+                    <div class="btn-group">
+                        <a asp-action="Edit" asp-route-id="@unitType.Id" class="btn" style="background-color: #1c6eba; color: white; font-size: 17px; border-radius: 4px ">
+                     ✏
+                    </a>
+
+                        <a asp-action="Delete" asp-route-id="@unitType.Id" class="btn" style="background-color:#ba1c1c; color:white; margin-left: 10px; font-size: 17px; border-radius: 4px" data-toggle="modal" data-target="@("#DeleteUnitType-" + unitType.Id)">
+                              🗑</a>
+                        @await Html.PartialAsync("DeleteViewPartial",unitType)
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

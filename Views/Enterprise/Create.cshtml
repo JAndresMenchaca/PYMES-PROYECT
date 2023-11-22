@@ -16,34 +16,32 @@
     }
 </style>
 
-
 <div class="container-fluid">
 
-    <h1 style="text-align:center; color:white;">Registrar Asociaciones</h1>
+    <h1 style="text-align:center; color:rgb(255, 255, 255)">Registrar Asociacion</h1>
 
 
-    <form method="post" action="/Enterprise/create" enctype="multipart/form-data">
+    <form method="post" action="/Enterprise/create" enctype="multipart/form-data" style="color: white">
 
         <div class="col-md-12">
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label asp-for="GroupName" style="color: white;">Nombre de la Asociacion :</label>
-                            <input type="text" class="form-control" asp-for="GroupName" id="" aria-describedby="helpId" placeholder="Ingrese el nombre de su Asociacion" style="color: black;">
+                            <label asp-for="GroupName">Nombre de la Asociacion:</label>
+                            <input type="text" class="form-control" asp-for="GroupName" id="" aria-describedby="helpId" placeholder="Ingrese el nombre de su Asociacion">
                             <span asp-validation-for="GroupName" class="text-danger" style="font-size: 12px;"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label asp-for="IdTownShip" style="color: white;">Municipio:</label>
-                            <select class="form-control" asp-for="IdTownShip" asp-items="ViewBag.TownShips" style="color: black;">
-                                <option>Seleccione el Municipio</option>
+                            <label asp-for="IdTownShip">Municipio:</label>
+                            <select class="form-control" asp-for="IdTownShip" asp-items="ViewBag.TownShips">
+                                <option value="">Seleccione el Municipio</option>
                             </select>
                             <span asp-validation-for="IdTownShip" class="text-danger" style="font-size: 12px;"></span>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="col-md-12">
@@ -52,15 +50,15 @@
                     <div class="col-md-6">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label asp-for="Description" style="color:white;">Descripción:</label>
-                                <textarea class="form-control" asp-for="Description" id="" rows="5" placeholder="Ingrese una breve descripción" style="color: black;"></textarea>
+                                <label asp-for="Description" >Descripción:</label>
+                                <textarea class="form-control" asp-for="Description" id="" rows="5" placeholder="Ingrese una breve descripción" ></textarea>
                                 <span asp-validation-for="Description" class="text-danger" style="font-size: 12px;"></span>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label asp-for="Address" style="color:white;">Direccion:</label>
-                                <textarea class="form-control" asp-for="Address" id="" rows="5" placeholder="Ingrese su Direccion" style="color: black;"></textarea>
+                                <label asp-for="Address" >Direccion:</label>
+                                <textarea class="form-control" asp-for="Address" id="" rows="5" placeholder="Ingrese su Direccion" ></textarea>
                                 <span asp-validation-for="Address" class="text-danger" style="font-size: 12px;"></span>
                             </div>
                         </div>
@@ -71,9 +69,9 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div class="form-group">
-                                    <label asp-for="Image" style="color: white;">Buscar Logo:</label>
+                                    <label asp-for="Image">Seleccione un Logo (opcional):</label>
                                     <div class="input-group">
-                                        <input type="file" id="Image" name="imagen" class="form-control" asp-for="Image" placeholder="Seleccione una Imagen" style="color: black;">
+                                        <input type="file" id="Image" name="imagen" class="form-control" asp-for="Image" placeholder="Cargar una imagen (opcional)" accept=".jpg, .jpeg, .png, .gif">
                                     </div>
                                     <span asp-validation-for="Image" class="text-danger" style="font-size: 12px;"></span>
                                 </div>
@@ -81,7 +79,7 @@
                         </div>
 
                         <div class="col-md-12">
-                          @*  <img id="previewImage" src="~/images/loginimg/rompecabezas.png" class="imagen-redonda" />*@
+                          @*  <img id="previewImage" src="~/images/LoginImg/rompecabezas.png" class="imagen-redonda" />*@
                             @if (Model != null)
                             {
                                 @if (Model.Image != null && Model.Image.Length > 0)
@@ -89,7 +87,7 @@
                                     <img id="previewImage" src="data:image/png;base64,@Convert.ToBase64String(Model.Image)" alt="Imagen actual" class="imagen-redonda" />
                                 }                          
                             }else{
-                                <img id="previewImage" src="~/images/loginimg/rompecabezas.png" class="imagen-redonda" />
+                                <img id="previewImage" src="~/images/LoginImg/rompecabezas.png" class="imagen-redonda" />
                             }         
                         </div>
                     </div>
@@ -101,16 +99,16 @@
                 <div class="row">
                     <div class="col-md-3">
                     </div>                
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-dark btn-md  btn-block ">Aceptar</button> <!-- Agregamos "btn-block" para que ocupe todo el ancho -->
+                                    <button type="submit" class="btn  btn-md  btn-block " style="background-color:#15718d; color:white;">Aceptar</button> <!-- Agregamos "btn-block" para que ocupe todo el ancho -->
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="text-center">
-                                    <a asp-action="Index" class="btn btn-warning btn-md btn-block ">Cancelar</a> <!-- Agregamos "btn-block" para que ocupe todo el ancho -->
+                                    <a asp-action="Index" class="btn  btn-md btn-block " style="background-color:#bb2727; color:white;">Cancelar</a> <!-- Agregamos "btn-block" para que ocupe todo el ancho -->
                                 </div>
                             </div>
                         </div>                                                             
@@ -142,6 +140,10 @@
 
     @*para poder manejar el Modal*@
     @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+
         @if (TempData["ShowModal"] as bool? == true)
         {
             <script>

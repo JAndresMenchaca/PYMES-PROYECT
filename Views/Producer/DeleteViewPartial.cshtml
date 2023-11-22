@@ -20,11 +20,11 @@
             </div>
             <form action="/Producer/ConfirmDelete" method="post">
                 <input hidden asp-for="Id" />
-                <input asp-for="IdNavigation.Name"/>
-                <input asp-for="IdNavigation.LastName" />
+                @* <input asp-for="IdNavigation.Name"/>
+                <input asp-for="IdNavigation.LastName" /> *@
                 <div class="modal-footer">
-                    <a asp-action="Index" class="btn btn-danger" data-dismiss="modal">Cancelar</a>
-                    <button type="submit" class="btn btn-secondary">Aceptar</button>
+                    <a asp-action="Index" class="btn btn-secondary" data-dismiss="modal">Cancelar</a>
+                    <button type="submit" class="btn btn-danger" >Eliminar</button>
                 </div>
             </form>
         </div>

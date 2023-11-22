@@ -1,0 +1,83 @@
+﻿@model Proyecto_Pymes.Models.DB.Warehouse
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 style="text-align:center; color: white;">Registrar Nuevo Almacen</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4 mx-auto my-5">
+        <form asp-action="Create" style="color: white;" >
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Nombre:</label>
+                <input type="text" asp-for="Name" class="form-control" placeholder="Nombre" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Location" class="control-label">Ubicación (Opcional):</label>
+                <input type="text" asp-for="Location" class="form-control" placeholder="Ubicación" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CapacityMax" class="control-label">Capacidad Máxima:</label>
+                <input type="number" asp-for="CapacityMax" class="form-control" placeholder="Capacidad Máxima" />
+                <span asp-validation-for="CapacityMax" class="text-danger"></span>
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="text-center">
+                            <button type="submit" class="btn  btn-md  btn-block " style="background-color:#15718d; color:white;">Aceptar</button> <!-- Agregamos "btn-block" para que ocupe todo el ancho -->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-center">
+                            <a asp-action="Index" class="btn  btn-md btn-block " style="background-color:#bb2727; color:white;">Cancelar</a> <!-- Agregamos "btn-block" para que ocupe todo el ancho -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Mensaje</h5>
+            </div>
+            <div class="modal-body">
+                <p>Registro exitoso! <i class="fas fa-check-circle"></i></p>
+            </div>
+            <div class="modal-footer">
+                <a asp-controller="Warehouses" asp-action="Index" class="btn btn-warning">Aceptar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    @if (TempData["ShowModal"] as bool? == true)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#exampleModalCenter').modal('show');
+            });
+        </script>
+    }
+}
