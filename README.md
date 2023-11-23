@@ -172,6 +172,55 @@ dotnet run
 ```
 
 ## **PROCEDIMIENTO DE HOSTEADO Y HOSTING**
+<img src="/wwwroot/imgDoc/doc.png" alt="Descripción de la imagen" width="500"/>
+Si desea poner la aplicación en marcha en un servidor, puede usar Docker(es necesario tener Docker instalado).
+Siga estos pasos:
+
+1. Completar con exito la parte de **INSTALACIÓN Y CONFIGURACIÓN**
+> [!IMPORTANT]
+> En la seccion **INSTALACIÓN Y CONFIGURACIÓN** se habla sobre cambiar la cadena de conexión en el archivo appSetigsJson del Proyecto</br></br>
+Tome en cuenta que se debe poner el **NOMBRE** del servidor en el cual se va a ejecutar la aplicacion(cambielo si es necesario).</br></br>
+Para ver como hacerlo vaya a **INSTALACIÓN Y CONFIGURACIÓN > Configuración de la Aplicación** 
+2. Abra **Docker Desktop** y ejecute el siguiente comando en la raiz del proyecto, esto creara una imagen de Docker:
+``` bash
+docker build -t pymes_proyect .
+```
+3. Verifique que la imagen se creo correctamente:
+``` bash
+docker images
+```
+4. Ponga la imagen en marcha dentro de un contenedor, aqui puede especificar el puerto que se usara, en este caso es el 8888:80
+``` bash
+docker run -p 8888:80 pymes_proyect
+```
+5. Verifique que el contenedor esta en uso, use el comando:
+``` bash
+docker ps
+```
+6. Dirijase a un navegador web y ponga la url correspondiente al puerto que especifico, es este caso es: 
+``` bash
+docker ps
+```
+7. Ahora que ya verificamos que la imagen funciona, hay que convertir la imagen a un archivo .tar, para poder compartir esta imagen(en este caso, para llevarla al servidor): 
+``` bash
+docker save -o pymes_proyect.tar pymes_proyect
+```
+8. Ahora tenemos un archivo .tar que podemos compartirlo, o podemos llevarlo en un USB hasta el servidor
+> [!IMPORTANT]
+> En este punto tambien debemos tener la base de datos restaurada en el servidor, siga los pasos de COMO RESTAURAR LA BDD explicada en **INSTALACIÓN Y CONFIGURACIÓN**
+10. Una vez que tenemos el archivo .tar en el serviodor ejecutamos el comando 
+``` bash
+docker load -i pymes_proyect.tar
+```
+10. Ya tenemos la imagen en el servidor para comprobarlo podemos ejecutar:
+``` bash
+docker images
+```
+11. Ahora volvemos a poner la imagen en marcha:
+``` bash
+docker run -p 8888:80 pymes_proyect
+```
+
 
 
 ## **PERSONALIZACIÓN Y CONFIGURACIÓN**
