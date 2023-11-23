@@ -11,7 +11,7 @@ Este es el repositorio oficial del Proyecto PYMES
 4. [Arquitectura del Software](#arquitectura-del-software)
 5. [Requisitos del Sistema](#requisitos-del-sistema)
 6. [Instalación y Configuración](#instalación-y-configuración)
-7. [Procedimiento de Hosteo y Hosting](#procedimiento-de-hosteado-y-hosting)
+7. [Procedimiento de Hosteado y Hosting](#procedimiento-de-hosteado-y-hosting)
 8. [Personalización y Configuración](#personalización-y-configuración)
 9. [Seguridad](#seguridad)
 10. [Depuración y Solución de Problemas](#depuración-y-solución-de-problemas)
