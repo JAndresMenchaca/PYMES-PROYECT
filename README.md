@@ -5,7 +5,7 @@ Este es el repositorio oficial del Proyecto PYMES
 
 ## Tabla de Contenidos
 
-1. [1. Introducción](#introducción)
+1. [Introducción](#introducción)
 2. [Descripción del Proyecto](#descripción-del-proyecto)
 3. [Roles / Integrantes](#roles-e-integrantes)
 4. [Arquitectura del Software](#arquitectura-del-software)
