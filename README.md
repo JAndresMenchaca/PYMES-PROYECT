@@ -167,9 +167,14 @@ git clone https://github.com/anddresMenchaca/PYMES-PROYECT.git
 
 9. Una vez completados todos los pasos anteriores, podrás ejecutar el proyecto.
 10. Si no estas usando VS y estas usando VS Code u otro IDE puedes ejecutar este comando en la raiz del proyecto.
+
 ``` bash
 dotnet run 
 ```
+
+> [!IMPORTANT]
+> **CREDENCIALES DEL SUPER-USUARIO:** USUARIO: KBJ5001497 - CONTRASEÑA: 123 </br> **CUANDO INGRESE POR PRIMERA VEZ, DEBE CREAR UN NUEVO SUPER-USUARIO CON SU PROPIO EMAIL**
+
 
 ## **PROCEDIMIENTO DE HOSTEADO Y HOSTING**
 <img src="/wwwroot/imgDoc/doc.png" alt="Descripción de la imagen" width="500"/>
