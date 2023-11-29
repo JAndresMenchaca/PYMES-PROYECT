@@ -3,6 +3,12 @@
 # PROYECTO PYMES
 Este es el repositorio oficial del Proyecto PYMES
 
+## Video de Presentación
+<a href="https://www.youtube.com/watch?v=4ckT_--Dp94">
+  <img src="/wwwroot/images/LoginImg/logoInicio.png" alt="Descripción de la miniatura">
+</a>
+
+
 ## Tabla de Contenidos
 
 1. [Introducción](#introducción)
